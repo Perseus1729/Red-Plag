@@ -1,0 +1,44 @@
+
+
+
+
+input{
+    color:red
+}
+
+nav{
+    background-image: url('../bg1.jpg');
+    direction: rtl;
+    font-size: x-large;
+    text-decoration: none;
+    padding: 10px;
+
+}
+a:link{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    text-decoration: none;
+    color: red;
+}
+
+.upload{
+    
+    text-align: center;
+    font-size: x-large;
+    border:solid red;
+    background-color: white;
+
+}
+
+.Download{
+    text-align: center;
+    font-size: x-large;
+    border:solid red;
+    background-color: white;
+
+    padding-bottom: 10px;
+}
+
+
