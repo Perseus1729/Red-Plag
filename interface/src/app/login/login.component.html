@@ -1,0 +1,25 @@
+
+<div class="d-flex justify-content-center" style="width:100%;position: absolute;height: 100%; background-image: url('../../assets/bg3.jpg');background-size: cover;background-repeat: no-repeat; color: tomato;" >
+    <h1 style="position:absolute;top:70px;font-family:'Audiowide', sans-serif; ;color: black;">
+        CodeFrisk
+    </h1>
+    <form [formGroup]="loginform" (ngSubmit)="loginUser()" style="top: 20%;position: absolute;">
+    <p style="font-size: xx-large;text-align: center;">Login</p>
+    <div class="table-borderless" style="border-spacing:10px 15px; font-size: large;" >
+        <tr>
+            <th>Username:</th>
+            <th><input type="text" formControlName="username"></th>
+        </tr>
+        <tr>
+            <th>Password:</th>
+            <th><input type="password" formControlName="password"></th>
+        </tr>
+        </div>
+        <div class="d-flex justify-content-center" style="padding-top: 20px; padding-bottom: 20px;">
+    <button type="submit" class="btn btn-primary btn-lg" [disabled]="loginform.invalid" style="padding-left: 20px;">Login</button><br>
+    </div>
+    <div class="d-flex justify-content-center" style=" padding-bottom: 20px; font-size: larger;">
+    Didn't have an account?<a routerLink="/signup">Signup</a>
+    </div>
+</form>
+</div>
