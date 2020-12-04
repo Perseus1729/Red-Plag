@@ -7,6 +7,7 @@ import sys
 from matplotlib import cm
 import matplotlib.colors as colors
 import math
+import csv
 
 class add_data(models.Model):
     username = models.CharField(max_length=50)
@@ -15,13 +16,6 @@ class add_data(models.Model):
     def __str__(self):
         return self.data.name
 
-
-class add_data(models.Model):
-    username = models.CharField(max_length=50)
-    label = models.CharField(max_length=50)
-    data = models.FileField()
-    def _str_(self):
-        return self.data.name
 
 def visualizer(l,data):
     x=range(len(l)) 
@@ -102,6 +96,16 @@ def tf_idf(list_of_files,h):
             l[j,i]=l[i,j]
             res+="similarity between "+ file_names[i]+" submitted by "+h[i]+" and "+file_names[j]+" submitted by "+h[j]+" = "+str(l[i][j])+"\n"
     result.write(res)
+    f=l.tolist()
+    filess=['']+list_of_files
+    
+    for x in range(len(list_of_files)):
+        f[x]=[list_of_files[x]]+f[x]
+    f=[filess]+f
+    with open("media/result.csv", "w+") as myCsv:
+        csvWriter = csv.writer(myCsv, delimiter=',')
+        csvWriter.writerows(f)
+    
     return visualizer(list_of_files,l)
 
 def similarity(s,t):

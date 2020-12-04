@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
     
     try{
       this.username=sessionStorage.getItem('username');
+      console.log(sessionStorage.getItem('token'));
     }
     catch(err){
       location.replace("http://localhost:4200/login");
@@ -79,10 +80,21 @@ export class HomeComponent implements OnInit {
               else{
                   var x='http://127.0.0.1:8000/media/'+response['txt'];
                   var y ='http://127.0.0.1:8000/media/'+ response['png'];
+                  var z ='http://127.0.0.1:8000/media/'+ response['csv'];
                   this.http.get(x,{responseType: 'arraybuffer'}).subscribe(
                     res => {
                       const blob = new Blob([res], { type : 'application/txt' });
                       const file = new File([blob], 'result' + '.txt', { type: 'application/txt' });
+                      saveAs(file);
+                    },
+                    error => {
+                      console.log("failed");
+                    }
+                  );
+                  this.http.get(z,{responseType: 'arraybuffer'}).subscribe(
+                    res => {
+                      const blob = new Blob([res], { type : 'application/csv' });
+                      const file = new File([blob], 'result' + '.csv', { type: 'application/csv' });
                       saveAs(file);
                     },
                     error => {

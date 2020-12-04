@@ -65,7 +65,7 @@ class DataUpload(viewsets.ModelViewSet):
             l.append(i.data.name)
             users.append(i.username)
         path=tf_idf(l,users)
-        data={'png':path,'txt':'result.txt'}
+        data={'png':path,'txt':'result.txt','csv':'result.csv'}
         return JsonResponse(data, safe=False)
 
 
