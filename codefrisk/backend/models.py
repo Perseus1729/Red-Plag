@@ -179,6 +179,9 @@ def preprocessing(list_of_files,usernames):
             remove_comments(content)
             remove_redundant_functions(content)
             remove_macros(content)
+            content=content.replace("while","for")
+            content=content.replace("switch","if")
+            content=content.replace("case","else if")
         
         sym=[",",";","{","}",")","(","[","]","+","-","*","/","%","|","&","^","!","=","<",">","?","'",'"','#','.']
         for i in sym:
