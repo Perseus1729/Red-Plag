@@ -37,6 +37,7 @@ def remove_redundant_functions(content):
          Reference:https://stackoverflow.com/questions/33209302/removal-of-unused-or-redundant-code
     """
     type_list=['int','void','char','string']
+    t=""
     for type in type_list:
         L=re.findall(type+"\s*[a-z0-9_]\s\([a-z0-9_ \n\t,\r\f\v]\)\s\{",content)
         for y in L:
@@ -60,34 +61,34 @@ def remove_redundant_functions(content):
         if(g[1]==""):
             content=t
 
-def visualizer(l,data):
+def visualizer(list_of_files,similarity_matrix):
     """ 
-    Arguments:
-        l:list of source code files
-        data:2-dimensional matrix representing mutual similarity between each pair of files
-    Return type:
+    Arguments    :
+        list_of_files    :list of source code files
+        similarity_matrix:2-dimensional matrix representing mutual similarity between each pair of files
+    Return type  :
         Path of the saved image
     Functionality:
-    Plotting the output data and saving it as an image """
-    x=range(len(l)) 
-    y=range(len(l))
+        Plotting the output similarity_matrix and saving it as an image """
+    x=range(len(list_of_files)) 
+    y=range(len(list_of_files))
     xx,yy=np.meshgrid(x,y)
-    z=data[xx,yy]
+    z=similarity_matrix[xx,yy]
     cmap =cm.get_cmap("rainbow",100)
     fig=plt.figure()
     ax=fig.add_subplot(111)
     im=ax.matshow(z,cmap=cmap,vmin=0,vmax=1.01,origin='lower')
-    for i in range(len(l)):
+    for i in range(len(list_of_files)):
         ax.text(i,i,1,ha="center", va="center", color="k")
-        for j in range(i+1,len(l)):
-            ax.text(j, i, int(data[i,j]*100)/100,ha="center", va="center", color="k")
-            ax.text(i,j, int(data[i,j]*100)/100,ha="center", va="center", color="k")
+        for j in range(i+1,len(list_of_files)):
+            ax.text(j, i, int(similarity_matrix[i,j]*100)/100,ha="center", va="center", color="k")
+            ax.text(i,j, int(similarity_matrix[i,j]*100)/100,ha="center", va="center", color="k")
     fig.colorbar(im,shrink=0.5)
-    ax.set_xticks(range(len(l)))
-    ax.set_yticks(range(len(l)))
-    ax.set_xticklabels(l,rotation=90)
-    ax.set_yticklabels(l)
-    ax.tick_params(labelsize=30/len(l))
+    ax.set_xticks(range(len(list_of_files)))
+    ax.set_yticks(range(len(list_of_files)))
+    ax.set_xticklabels(list_of_files,rotation=90)
+    ax.set_yticklabels(list_of_files)
+    ax.tick_params(labelsize=30/len(list_of_files))
     random=np.random.randint(1,100)
     path=str(random)+'.png'
     plt.savefig('media/'+path)
@@ -147,9 +148,20 @@ def remove_comments(file_content):
     return content
 
 def preprocessing(list_of_files,usernames):
-    """Core logic is based on the Bag_of_Words
-    and TF-IDF Strategy( Term frequency and Inverse Document Frequency )
     """
+    Core logic is based on the Bag_of_Words
+    and TF-IDF Strategy( Term frequency and Inverse Document Frequency )
+    
+    Arguments    :
+        list_of_files    :list of source code files
+        usernames        :It consists data of all the Users who have been SignedUp
+    Return type  :
+        It returns "tf_idf()" function as Output
+    Functionality:
+    
+    Logic Used   :
+    
+     """
     word_count_across_documents={}
     """ Maintains the word count of each element in a document """
 
@@ -187,14 +199,21 @@ def preprocessing(list_of_files,usernames):
     return tf_idf(word_count_in_each_file,word_count_across_documents,list_of_files,usernames)
 
 def tf_idf(word_count_in_each_file,word_count_across_documents,list_of_files,usernames):
-
+    """ Arguments    :
+        list_of_files              :list of source code files
+        usernames                  :It consists data of all the Users who have been SignedUp
+        word_count_in_each_file    :
+        word_count_across_documents:
+    Return type  :
+        It returns "txt_file()" function as Output
+    Functionality:"""
     similarity_matrix=np.zeros((len(list_of_files),len(list_of_files)))
     """ Computing tf_idf vector for each file"""
     tf_idf_vec=[]
     for i in range(len(list_of_files)):
         temp=[]
-        for j in word_count_each_file[i]:
-            temp.append(word_count_each_file[i].get(j)*(-0.01+(math.log(word_count_across_documents.get(j)/word_count_each_file[i].get(j)/len(list_of_files)))))
+        for j in word_count_in_each_file[i]:
+            temp.append(word_count_in_each_file[i].get(j)*(-0.01+(math.log(word_count_across_documents.get(j)/word_count_in_each_file[i].get(j)/len(list_of_files)))))
         temp.sort()
         tf_idf_vec.append(temp)
 
@@ -206,18 +225,37 @@ def tf_idf(word_count_in_each_file,word_count_across_documents,list_of_files,use
     return txt_file(similarity_matrix,list_of_files,usernames)
 
 def txt_file(similarity_matrix,list_of_files,usernames):
+    """ 
+    Arguments    :
+        list_of_files    :list of source code files
+        similarity_matrix:2-dimensional matrix representing mutual similarity between each pair of files
+        usernames        :It consists data of all the Users who have been SignedUp
+    Return type  :
+        It returns "csv_file()" function as Output
+    Functionality:
+        Displaying the Percentage matching among files in text format and saving it as a csv file """   
     result=open("media/result.txt","w")
     res=""
     for i in range(len(list_of_files)):
         for j in range(i+1,len(list_of_files)):
             res+="similarity between "+ list_of_files[i]+" submitted by "+usernames[i]+" and "+list_of_files[j]+" submitted by "+usernames[j]+" = "+str(similarity_matrix[i][j])+"\n"
     result.write(res)
-    return csv_file(list_of_files,l)
+    return csv_file(list_of_files,similarity_matrix)
 
 def csv_file(list_of_files,similarity_matrix):
     """ Interpreting the Output data as a CSV file ,
     where each element represent the percentage matching between the file 
     corresponding to a row and column"""
+    """ 
+    Arguments    :
+        list_of_files    :list of source code files
+        similarity_matrix:2-dimensional matrix representing mutual similarity between each pair of files
+    Return type  :
+        It returns "visualizer()" function as Output
+    Functionality:
+        Plotting the output similarity_matrix and saving it as an csv file 
+           
+    """
     f=similarity_matrix.tolist()
     files=['']+list_of_files
     for x in range(len(list_of_files)):
@@ -226,4 +264,11 @@ def csv_file(list_of_files,similarity_matrix):
     with open("media/result.csv", "w+") as myCsv:
         csvWriter = csv.writer(myCsv, delimiter=',')
         csvWriter.writerows(f)
-    return visualizer(list_of_files,l)
+    return visualizer(list_of_files,similarity_matrix)
+def similarity(s,t):
+    
+    """ This shows the fraction of matching among the files """
+    x=min(s.size,t.size)
+    s=s[-x:]
+    t=t[-x:]
+    return np.dot(s,t)/(np.linalg.norm(s)*np.linalg.norm(t))
