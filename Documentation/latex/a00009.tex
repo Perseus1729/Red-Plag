@@ -1,0 +1,49 @@
+\hypertarget{a00009}{}\doxysection{views Namespace Reference}
+\label{a00009}\index{views@{views}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{a00022}{Data\+Upload}}
+\item 
+class \mbox{\hyperlink{a00018}{User\+View\+Set}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{a00009_aa3a2cd2df6ae3df6f7b9062cd6ef829a}{create\+\_\+user}} (request)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{a00009_aa3a2cd2df6ae3df6f7b9062cd6ef829a}\label{a00009_aa3a2cd2df6ae3df6f7b9062cd6ef829a}} 
+\index{views@{views}!create\_user@{create\_user}}
+\index{create\_user@{create\_user}!views@{views}}
+\doxysubsubsection{\texorpdfstring{create\_user()}{create\_user()}}
+{\footnotesize\ttfamily def views.\+create\+\_\+user (\begin{DoxyParamCaption}\item[{}]{request }\end{DoxyParamCaption})}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21 \textcolor{keyword}{def }create\_user(request):}
+\DoxyCodeLine{22     validated\_data=JSONParser().parse(request)}
+\DoxyCodeLine{23     if(validated\_data[\textcolor{stringliteral}{'password'}]!=validated\_data[\textcolor{stringliteral}{'password2'}]):}
+\DoxyCodeLine{24         \textcolor{keywordflow}{return} JsonResponse(\textcolor{stringliteral}{"{}Passwords donot match"{}},safe=\textcolor{keyword}{False})}
+\DoxyCodeLine{25     elif(User.objects.filter(email=validated\_data[\textcolor{stringliteral}{'email'}]).exists()):}
+\DoxyCodeLine{26         \textcolor{keywordflow}{return} JsonResponse(\textcolor{stringliteral}{"{}There exists an account with this email"{}},safe=\textcolor{keyword}{False})}
+\DoxyCodeLine{27     elif(User.objects.filter(username=validated\_data[\textcolor{stringliteral}{'username'}]).exists()):}
+\DoxyCodeLine{28         \textcolor{keywordflow}{return} JsonResponse(\textcolor{stringliteral}{"{}There exists an account with this username"{}},safe=\textcolor{keyword}{False})}
+\DoxyCodeLine{29     \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{30         \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{31             new\_data=\{\}}
+\DoxyCodeLine{32             new\_data[\textcolor{stringliteral}{'username'}]=validated\_data[\textcolor{stringliteral}{'username'}]}
+\DoxyCodeLine{33             new\_data[\textcolor{stringliteral}{'password'}]=validated\_data[\textcolor{stringliteral}{'password'}]}
+\DoxyCodeLine{34             new\_data[\textcolor{stringliteral}{'email'}]=validated\_data[\textcolor{stringliteral}{'email'}]}
+\DoxyCodeLine{35         \textcolor{keywordflow}{except}:}
+\DoxyCodeLine{36             \textcolor{keywordflow}{return} JsonResponse(\textcolor{stringliteral}{"{}failed"{}},safe=\textcolor{keyword}{False})}
+\DoxyCodeLine{37         user\_serializer=UserSerializer(data=new\_data)}
+\DoxyCodeLine{38         \textcolor{keywordflow}{if} user\_serializer.is\_valid():}
+\DoxyCodeLine{39             user\_serializer.save()}
+\DoxyCodeLine{40             \textcolor{keywordflow}{return} JsonResponse(\textcolor{stringliteral}{"{}success"{}},safe=\textcolor{keyword}{False})}
+\DoxyCodeLine{41         \textcolor{keywordflow}{return} JsonResponse(\textcolor{stringliteral}{"{}Invalid credentials"{}},safe=\textcolor{keyword}{False})}
+\DoxyCodeLine{42 }
+
+\end{DoxyCode}

@@ -1,0 +1,540 @@
+\hypertarget{a00008}{}\doxysection{models Namespace Reference}
+\label{a00008}\index{models@{models}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{a00014}{add\+\_\+data}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{a00008_a04f77e07fb14bd5e1676c7977d1cf9fb}{remove\+\_\+redundant\+\_\+functions}} (content)
+\item 
+def \mbox{\hyperlink{a00008_ad68fd9f59271bd6488f679c29f8c0d0d}{visualizer}} (list\+\_\+of\+\_\+files, similarity\+\_\+matrix)
+\item 
+def \mbox{\hyperlink{a00008_aa41cbf60d8672b6496842527408c3663}{remove\+\_\+macros}} (file\+\_\+content)
+\item 
+def \mbox{\hyperlink{a00008_a32bd0fa208922857486cccb2110a5b99}{remove\+\_\+comments}} (file\+\_\+content)
+\item 
+def \mbox{\hyperlink{a00008_a87f7f17fcaee1e188a0c81727de2e0a1}{remove\+\_\+comments\+\_\+pythonfile}} (file\+\_\+content)
+\item 
+def \mbox{\hyperlink{a00008_a56248cb72b70e4186339e4f60af23b2c}{preprocessing}} (list\+\_\+of\+\_\+paths, list\+\_\+of\+\_\+files)
+\item 
+def \mbox{\hyperlink{a00008_a6d507e11be3d7f5665dbf0049d0ad6bd}{tf\+\_\+idf}} (word\+\_\+count\+\_\+in\+\_\+each\+\_\+file, word\+\_\+count\+\_\+across\+\_\+documents, list\+\_\+of\+\_\+paths, list\+\_\+of\+\_\+files)
+\item 
+def \mbox{\hyperlink{a00008_ae9d41a08307e8914d368c6e18d9f52b5}{txt\+\_\+file}} (similarity\+\_\+matrix, list\+\_\+of\+\_\+paths, list\+\_\+of\+\_\+files)
+\item 
+def \mbox{\hyperlink{a00008_a13fcdaace15888ccb011a07763a7c3fb}{csv\+\_\+file}} (list\+\_\+of\+\_\+files, similarity\+\_\+matrix)
+\item 
+def \mbox{\hyperlink{a00008_ad7bfa0660f05ca9a55b0b491cd9ace54}{similarity}} (s, t)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{a00008_a13fcdaace15888ccb011a07763a7c3fb}\label{a00008_a13fcdaace15888ccb011a07763a7c3fb}} 
+\index{models@{models}!csv\_file@{csv\_file}}
+\index{csv\_file@{csv\_file}!models@{models}}
+\doxysubsubsection{\texorpdfstring{csv\_file()}{csv\_file()}}
+{\footnotesize\ttfamily def models.\+csv\+\_\+file (\begin{DoxyParamCaption}\item[{}]{list\+\_\+of\+\_\+files,  }\item[{}]{similarity\+\_\+matrix }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Arguments    :
+    list_of_files    :list of source code file names
+    similarity_matrix:2-dimensional matrix representing mutual similarity between each pair of files
+Functionality:
+    Plotting the output similarity_matrix and saving it as an csv file \end{DoxyVerb}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{304 \textcolor{keyword}{def }csv\_file(list\_of\_files,similarity\_matrix):}
+\DoxyCodeLine{305     \textcolor{comment}{\#"{}"{}"{} Interpreting the Output data as a CSV file ,}}
+\DoxyCodeLine{306     \textcolor{comment}{\#where each element represent the percentage matching between the file }}
+\DoxyCodeLine{307     \textcolor{comment}{\#corresponding to a row and column"{}"{}"{}}}
+\DoxyCodeLine{308     \textcolor{stringliteral}{"{}"{}"{} }}
+\DoxyCodeLine{309 \textcolor{stringliteral}{    Arguments    :}}
+\DoxyCodeLine{310 \textcolor{stringliteral}{        list\_of\_files    :list of source code file names}}
+\DoxyCodeLine{311 \textcolor{stringliteral}{        similarity\_matrix:2-\/dimensional matrix representing mutual similarity between each pair of files}}
+\DoxyCodeLine{312 \textcolor{stringliteral}{    Functionality:}}
+\DoxyCodeLine{313 \textcolor{stringliteral}{        Plotting the output similarity\_matrix and saving it as an csv file }}
+\DoxyCodeLine{314 \textcolor{stringliteral}{           }}
+\DoxyCodeLine{315 \textcolor{stringliteral}{    "{}"{}"{}}}
+\DoxyCodeLine{316     f=similarity\_matrix.tolist()}
+\DoxyCodeLine{317     files=[\textcolor{stringliteral}{''}]+list\_of\_files}
+\DoxyCodeLine{318     \textcolor{keywordflow}{for} x \textcolor{keywordflow}{in} range(len(list\_of\_files)):}
+\DoxyCodeLine{319         f[x]=[list\_of\_files[x]]+f[x]}
+\DoxyCodeLine{320     f=[files]+f}
+\DoxyCodeLine{321     \textcolor{keyword}{with} open(\textcolor{stringliteral}{"{}media/result.csv"{}}, \textcolor{stringliteral}{"{}w+"{}}) \textcolor{keyword}{as} myCsv:}
+\DoxyCodeLine{322         csvWriter = csv.writer(myCsv, delimiter=\textcolor{stringliteral}{','})}
+\DoxyCodeLine{323         csvWriter.writerows(f)}
+\DoxyCodeLine{324     visualizer(list\_of\_files,similarity\_matrix)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{a00008_a56248cb72b70e4186339e4f60af23b2c}\label{a00008_a56248cb72b70e4186339e4f60af23b2c}} 
+\index{models@{models}!preprocessing@{preprocessing}}
+\index{preprocessing@{preprocessing}!models@{models}}
+\doxysubsubsection{\texorpdfstring{preprocessing()}{preprocessing()}}
+{\footnotesize\ttfamily def models.\+preprocessing (\begin{DoxyParamCaption}\item[{}]{list\+\_\+of\+\_\+paths,  }\item[{}]{list\+\_\+of\+\_\+files }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Core logic is based on the Bag_of_Words
+and TF-IDF Strategy( Term frequency and Inverse Document Frequency )
+
+Arguments    :
+    list_of_paths    :list of source code paths
+    list_of_files    :it consists of list of file names
+Functionality:
+    It finds the count of each word after removing comments and replacing macros and passes this vector to tf_idf function.\end{DoxyVerb}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{185 \textcolor{keyword}{def }preprocessing(list\_of\_paths,list\_of\_files):}
+\DoxyCodeLine{186     \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{187 \textcolor{stringliteral}{    Core logic is based on the Bag\_of\_Words}}
+\DoxyCodeLine{188 \textcolor{stringliteral}{    and TF-\/IDF Strategy( Term frequency and Inverse Document Frequency )}}
+\DoxyCodeLine{189 \textcolor{stringliteral}{    }}
+\DoxyCodeLine{190 \textcolor{stringliteral}{    Arguments    :}}
+\DoxyCodeLine{191 \textcolor{stringliteral}{        list\_of\_paths    :list of source code paths}}
+\DoxyCodeLine{192 \textcolor{stringliteral}{        list\_of\_files    :it consists of list of file names}}
+\DoxyCodeLine{193 \textcolor{stringliteral}{    Functionality:}}
+\DoxyCodeLine{194 \textcolor{stringliteral}{        It finds the count of each word after removing comments and replacing macros and passes this vector to tf\_idf function.}}
+\DoxyCodeLine{195 \textcolor{stringliteral}{    }}
+\DoxyCodeLine{196 \textcolor{stringliteral}{    "{}"{}"{}}}
+\DoxyCodeLine{197     word\_count\_across\_documents=\{\}}
+\DoxyCodeLine{198     \textcolor{stringliteral}{"{}"{}"{} Maintains the word count of each element in a document "{}"{}"{}}}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200     word\_count\_in\_each\_file=[]}
+\DoxyCodeLine{201    }
+\DoxyCodeLine{202     \textcolor{keywordflow}{for} files \textcolor{keywordflow}{in} list\_of\_paths:}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{204         filename=\textcolor{stringliteral}{'media/'}+files}
+\DoxyCodeLine{205         temp=\{\}}
+\DoxyCodeLine{206         myfile=open(filename,\textcolor{stringliteral}{"{}r"{}})}
+\DoxyCodeLine{207         content=myfile.read()}
+\DoxyCodeLine{208         myfile.close()}
+\DoxyCodeLine{209         }
+\DoxyCodeLine{210         if(files[-\/4:]==\textcolor{stringliteral}{'.cpp'}):}
+\DoxyCodeLine{211             content=remove\_comments(content)}
+\DoxyCodeLine{212             content=remove\_redundant\_functions(content)}
+\DoxyCodeLine{213             content=remove\_macros(content)}
+\DoxyCodeLine{214             }
+\DoxyCodeLine{215         elif(files[-\/3:]==\textcolor{stringliteral}{'.py'}):}
+\DoxyCodeLine{216             content=remove\_comments\_pythonfile(content)}
+\DoxyCodeLine{217       }
+\DoxyCodeLine{218         }
+\DoxyCodeLine{219         sym=[\textcolor{stringliteral}{"{},"{}},\textcolor{stringliteral}{"{};"{}},\textcolor{stringliteral}{"{}\{"{}},\textcolor{stringliteral}{"{}\}"{}},\textcolor{stringliteral}{"{})"{}},\textcolor{stringliteral}{"{}("{}},\textcolor{stringliteral}{"{}["{}},\textcolor{stringliteral}{"{}]"{}},\textcolor{stringliteral}{"{}+"{}},\textcolor{stringliteral}{"{}-\/"{}},\textcolor{stringliteral}{"{}*"{}},\textcolor{stringliteral}{"{}/"{}},\textcolor{stringliteral}{"{}\%"{}},\textcolor{stringliteral}{"{}|"{}},\textcolor{stringliteral}{"{}\&"{}},\textcolor{stringliteral}{"{}\string^"{}},\textcolor{stringliteral}{"{}!"{}},\textcolor{stringliteral}{"{}="{}},\textcolor{stringliteral}{"{}<"{}},\textcolor{stringliteral}{"{}>"{}},\textcolor{stringliteral}{"{}?"{}},\textcolor{stringliteral}{"{}'"{}},\textcolor{stringliteral}{'"{}'},\textcolor{stringliteral}{'\#'},\textcolor{stringliteral}{'.'}]}
+\DoxyCodeLine{220         \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} sym:}
+\DoxyCodeLine{221             content=content.replace(i,\textcolor{stringliteral}{"{} "{}}+i+\textcolor{stringliteral}{"{} "{}})}
+\DoxyCodeLine{222         }
+\DoxyCodeLine{223         if(files[-\/4:]==\textcolor{stringliteral}{'.cpp'}):}
+\DoxyCodeLine{224             content=content.replace(\textcolor{stringliteral}{"{}while"{}},\textcolor{stringliteral}{"{}for"{}})}
+\DoxyCodeLine{225             content=content.replace(\textcolor{stringliteral}{"{}switch"{}},\textcolor{stringliteral}{"{}if"{}})}
+\DoxyCodeLine{226             content=content.replace(\textcolor{stringliteral}{"{}case"{}},\textcolor{stringliteral}{"{}else if"{}})}
+\DoxyCodeLine{227             content=content.replace(\textcolor{stringliteral}{"{}default"{}},\textcolor{stringliteral}{"{}else"{}})}
+\DoxyCodeLine{228             content=content.replace(\textcolor{stringliteral}{"{}do"{}},\textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{229             content=content.replace(\textcolor{stringliteral}{"{};"{}},\textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{230             content=content.replace(\textcolor{stringliteral}{"{},"{}},\textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{231             content=content.replace(\textcolor{stringliteral}{"{}'"{}},\textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{232             content=content.replace(\textcolor{stringliteral}{'"{}'},\textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{233             }
+\DoxyCodeLine{234         elif(files[-\/3:]==\textcolor{stringliteral}{'.py'}):}
+\DoxyCodeLine{235             content=content.replace(\textcolor{stringliteral}{'while'},\textcolor{stringliteral}{'for'})}
+\DoxyCodeLine{236             content=content.replace(\textcolor{stringliteral}{'switch'},\textcolor{stringliteral}{'if'})}
+\DoxyCodeLine{237             content=content.replace(\textcolor{stringliteral}{'case'},\textcolor{stringliteral}{'elif'})}
+\DoxyCodeLine{238             content=content.replace(\textcolor{stringliteral}{'default'},\textcolor{stringliteral}{'else'})}
+\DoxyCodeLine{239             content=content.replace(\textcolor{stringliteral}{'do'},\textcolor{stringliteral}{''})}
+\DoxyCodeLine{240             content=re.sub(\textcolor{stringliteral}{':|\(\backslash\)'|\(\backslash\)"{}'},\textcolor{stringliteral}{''},content)}
+\DoxyCodeLine{241         while(content.find(\textcolor{stringliteral}{'/*'})!=-\/1):}
+\DoxyCodeLine{242             i=content.find(\textcolor{stringliteral}{'/*'})}
+\DoxyCodeLine{243             j=content.find(\textcolor{stringliteral}{'*/'})}
+\DoxyCodeLine{244             content=content[0:i]+content[j+2:]}
+\DoxyCodeLine{245         List\_of\_words=content.split()}
+\DoxyCodeLine{246 }
+\DoxyCodeLine{247         \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} List\_of\_words:}
+\DoxyCodeLine{248             temp[i]=temp.get(i,0)+1 }
+\DoxyCodeLine{249             word\_count\_across\_documents[i]=word\_count\_across\_documents.get(i,0)+1}
+\DoxyCodeLine{250         }
+\DoxyCodeLine{251         word\_count\_in\_each\_file.append(temp)}
+\DoxyCodeLine{252 }
+\DoxyCodeLine{253     tf\_idf(word\_count\_in\_each\_file,word\_count\_across\_documents,list\_of\_paths,list\_of\_files)}
+\DoxyCodeLine{254 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{a00008_a32bd0fa208922857486cccb2110a5b99}\label{a00008_a32bd0fa208922857486cccb2110a5b99}} 
+\index{models@{models}!remove\_comments@{remove\_comments}}
+\index{remove\_comments@{remove\_comments}!models@{models}}
+\doxysubsubsection{\texorpdfstring{remove\_comments()}{remove\_comments()}}
+{\footnotesize\ttfamily def models.\+remove\+\_\+comments (\begin{DoxyParamCaption}\item[{}]{file\+\_\+content }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Arguments:
+    file_content: string storing the source code
+Return type: updated string
+Functionality:
+    All commments in the code are replaced.
+Logic Used:
+    Using Regex detect substrings starting with // and ending with \n 
+    Similarly detect substrings starting with /* and ending with */
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{153 \textcolor{keyword}{def }remove\_comments(file\_content):}
+\DoxyCodeLine{154     \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{155 \textcolor{stringliteral}{    Arguments:}}
+\DoxyCodeLine{156 \textcolor{stringliteral}{        file\_content: string storing the source code}}
+\DoxyCodeLine{157 \textcolor{stringliteral}{    Return type: updated string}}
+\DoxyCodeLine{158 \textcolor{stringliteral}{    Functionality:}}
+\DoxyCodeLine{159 \textcolor{stringliteral}{        All commments in the code are replaced.}}
+\DoxyCodeLine{160 \textcolor{stringliteral}{    Logic Used:}}
+\DoxyCodeLine{161 \textcolor{stringliteral}{        Using Regex detect substrings starting with // and ending with \(\backslash\)n }}
+\DoxyCodeLine{162 \textcolor{stringliteral}{        Similarly detect substrings starting with /* and ending with */}}
+\DoxyCodeLine{163 \textcolor{stringliteral}{    "{}"{}"{}}}
+\DoxyCodeLine{164     pattern=re.compile(\textcolor{stringliteral}{'//.*?\$|/\(\backslash\)*.*?\(\backslash\)*/'},re.DOTALL|re.MULTILINE) }
+\DoxyCodeLine{165     \textcolor{stringliteral}{"{}"{}"{} pattern for comments "{}"{}"{}}}
+\DoxyCodeLine{166     content=re.sub(pattern,\textcolor{stringliteral}{''},file\_content)  }
+\DoxyCodeLine{167     \textcolor{stringliteral}{"{}"{}"{}remove comments"{}"{}"{}}}
+\DoxyCodeLine{168     \textcolor{keywordflow}{return} content}
+\DoxyCodeLine{169 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{a00008_a87f7f17fcaee1e188a0c81727de2e0a1}\label{a00008_a87f7f17fcaee1e188a0c81727de2e0a1}} 
+\index{models@{models}!remove\_comments\_pythonfile@{remove\_comments\_pythonfile}}
+\index{remove\_comments\_pythonfile@{remove\_comments\_pythonfile}!models@{models}}
+\doxysubsubsection{\texorpdfstring{remove\_comments\_pythonfile()}{remove\_comments\_pythonfile()}}
+{\footnotesize\ttfamily def models.\+remove\+\_\+comments\+\_\+pythonfile (\begin{DoxyParamCaption}\item[{}]{file\+\_\+content }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Arguments:
+    file_content: string storing the source code in python
+Return type: updated string
+Functionality:
+    All commments in the code are replaced.
+Logic Used:
+    Using Regex detect substrings starting with # and ending with \n 
+    Similarly detect substrings starting with ''' and ending with '''
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{170 \textcolor{keyword}{def }remove\_comments\_pythonfile(file\_content):}
+\DoxyCodeLine{171     \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{172 \textcolor{stringliteral}{    Arguments:}}
+\DoxyCodeLine{173 \textcolor{stringliteral}{        file\_content: string storing the source code in python}}
+\DoxyCodeLine{174 \textcolor{stringliteral}{    Return type: updated string}}
+\DoxyCodeLine{175 \textcolor{stringliteral}{    Functionality:}}
+\DoxyCodeLine{176 \textcolor{stringliteral}{        All commments in the code are replaced.}}
+\DoxyCodeLine{177 \textcolor{stringliteral}{    Logic Used:}}
+\DoxyCodeLine{178 \textcolor{stringliteral}{        Using Regex detect substrings starting with \# and ending with \(\backslash\)n }}
+\DoxyCodeLine{179 \textcolor{stringliteral}{        Similarly detect substrings starting with ''' and ending with '''}}
+\DoxyCodeLine{180 \textcolor{stringliteral}{    "{}"{}"{}}}
+\DoxyCodeLine{181     pattern=re.compile(\textcolor{stringliteral}{'\#.*?\$|\(\backslash\)'\(\backslash\)'\(\backslash\)'.*?\(\backslash\)'\(\backslash\)'\(\backslash\)'|\(\backslash\)"{}\(\backslash\)"{}\(\backslash\)"{}.*?\(\backslash\)"{}\(\backslash\)"{}\(\backslash\)"{}'},re.DOTALL|re.MULTILINE)}
+\DoxyCodeLine{182     content=re.sub(pattern,\textcolor{stringliteral}{''},file\_content)}
+\DoxyCodeLine{183     \textcolor{keywordflow}{return} content}
+\DoxyCodeLine{184 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{a00008_aa41cbf60d8672b6496842527408c3663}\label{a00008_aa41cbf60d8672b6496842527408c3663}} 
+\index{models@{models}!remove\_macros@{remove\_macros}}
+\index{remove\_macros@{remove\_macros}!models@{models}}
+\doxysubsubsection{\texorpdfstring{remove\_macros()}{remove\_macros()}}
+{\footnotesize\ttfamily def models.\+remove\+\_\+macros (\begin{DoxyParamCaption}\item[{}]{file\+\_\+content }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Arguments:
+    file_content: string storing the source code
+Return type: updated string
+Functionality:
+    All macros in the code are replaced.
+Logic Used:
+    Using Regex detect the macros
+    Replace them using replace() function
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{97 \textcolor{keyword}{def }remove\_macros(file\_content):}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99     \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{100 \textcolor{stringliteral}{    Arguments:}}
+\DoxyCodeLine{101 \textcolor{stringliteral}{        file\_content: string storing the source code}}
+\DoxyCodeLine{102 \textcolor{stringliteral}{    Return type: updated string}}
+\DoxyCodeLine{103 \textcolor{stringliteral}{    Functionality:}}
+\DoxyCodeLine{104 \textcolor{stringliteral}{        All macros in the code are replaced.}}
+\DoxyCodeLine{105 \textcolor{stringliteral}{    Logic Used:}}
+\DoxyCodeLine{106 \textcolor{stringliteral}{        Using Regex detect the macros}}
+\DoxyCodeLine{107 \textcolor{stringliteral}{        Replace them using replace() function}}
+\DoxyCodeLine{108 \textcolor{stringliteral}{    "{}"{}"{}}}
+\DoxyCodeLine{109     m=re.findall(\textcolor{stringliteral}{'\#define .+ .+'},file\_content) }
+\DoxyCodeLine{110     \textcolor{stringliteral}{"{}"{}"{}finding macros"{}"{}"{}}}
+\DoxyCodeLine{111     }
+\DoxyCodeLine{112     content=re.sub(\textcolor{stringliteral}{'\#define .+ .+'},\textcolor{stringliteral}{''},file\_content)  }
+\DoxyCodeLine{113     \textcolor{stringliteral}{"{}"{}"{}removing macros definitions"{}"{}"{}}}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115     \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} range(len(m)):     }
+\DoxyCodeLine{116         \textcolor{stringliteral}{"{}"{}"{}replacing macros"{}"{}"{}}}
+\DoxyCodeLine{117         j=0}
+\DoxyCodeLine{118         n=0}
+\DoxyCodeLine{119         \textcolor{keywordflow}{for} k \textcolor{keywordflow}{in} range(8,len(m[i])):}
+\DoxyCodeLine{120             if(m[i][k]==\textcolor{stringliteral}{'('}):}
+\DoxyCodeLine{121                 j=k-\/8}
+\DoxyCodeLine{122                 \textcolor{keywordflow}{break}}
+\DoxyCodeLine{123             elif(m[i][k]==\textcolor{stringliteral}{' '}):}
+\DoxyCodeLine{124                 j=-\/1}
+\DoxyCodeLine{125                 n=k+1}
+\DoxyCodeLine{126                 \textcolor{keywordflow}{break}}
+\DoxyCodeLine{127             }
+\DoxyCodeLine{128         if(j!=-\/1):}
+\DoxyCodeLine{129             \textcolor{keywordflow}{for} k \textcolor{keywordflow}{in} range(j+9,len(m[i])):}
+\DoxyCodeLine{130                 if(m[i][k]==\textcolor{stringliteral}{')'}):}
+\DoxyCodeLine{131                     n=k+2}
+\DoxyCodeLine{132                     \textcolor{keywordflow}{break}}
+\DoxyCodeLine{133             }
+\DoxyCodeLine{134         if(j==-\/1 \textcolor{keywordflow}{or} m[i][j+9]==\textcolor{stringliteral}{')'}):}
+\DoxyCodeLine{135             content=content.replace(m[i][8:n-\/1],m[i][n:])}
+\DoxyCodeLine{136             \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{137         \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{138             y\_param=m[i][j+9:n-\/2].split(\textcolor{stringliteral}{','})}
+\DoxyCodeLine{139                }
+\DoxyCodeLine{140             pattern=m[i][8:j+8]+\textcolor{stringliteral}{'\(\backslash\)(.*?\(\backslash\))'}}
+\DoxyCodeLine{141             m2=re.findall(pattern,content)}
+\DoxyCodeLine{142                 }
+\DoxyCodeLine{143             \textcolor{keywordflow}{for} z \textcolor{keywordflow}{in} m2:}
+\DoxyCodeLine{144                 param=z[j+1:-\/1].split(\textcolor{stringliteral}{','})}
+\DoxyCodeLine{145                 st=m[i][n:]}
+\DoxyCodeLine{146                     }
+\DoxyCodeLine{147 }
+\DoxyCodeLine{148                 \textcolor{keywordflow}{for} k \textcolor{keywordflow}{in} range(len(param)):}
+\DoxyCodeLine{149                     st=re.sub(y\_param[k].strip(),param[k],st)}
+\DoxyCodeLine{150                 content=content.replace(z,st)}
+\DoxyCodeLine{151     \textcolor{keywordflow}{return} content}
+\DoxyCodeLine{152 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{a00008_a04f77e07fb14bd5e1676c7977d1cf9fb}\label{a00008_a04f77e07fb14bd5e1676c7977d1cf9fb}} 
+\index{models@{models}!remove\_redundant\_functions@{remove\_redundant\_functions}}
+\index{remove\_redundant\_functions@{remove\_redundant\_functions}!models@{models}}
+\doxysubsubsection{\texorpdfstring{remove\_redundant\_functions()}{remove\_redundant\_functions()}}
+{\footnotesize\ttfamily def models.\+remove\+\_\+redundant\+\_\+functions (\begin{DoxyParamCaption}\item[{}]{content }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Arguments:
+    content: string storing the source code
+Return type: updated string
+Functionality:
+    redundant functions in a source code are removed
+Logic Used:
+     Write a minimal parser that can identify functions.
+     It just needs to detect the start and ending line of a function.
+     Programmatically comment out the first function, save to a temp file.
+     Try to compile the file by invoking the complier.
+     Check if there are compile errors, if yes, the function is called, if not, it is unused.
+     Continue with the next function. 
+     Reference:https://stackoverflow.com/questions/33209302/removal-of-unused-or-redundant-code
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23 \textcolor{keyword}{def }remove\_redundant\_functions(content):}
+\DoxyCodeLine{24     \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{25 \textcolor{stringliteral}{    Arguments:}}
+\DoxyCodeLine{26 \textcolor{stringliteral}{        content: string storing the source code}}
+\DoxyCodeLine{27 \textcolor{stringliteral}{    Return type: updated string}}
+\DoxyCodeLine{28 \textcolor{stringliteral}{    Functionality:}}
+\DoxyCodeLine{29 \textcolor{stringliteral}{        redundant functions in a source code are removed}}
+\DoxyCodeLine{30 \textcolor{stringliteral}{    Logic Used:}}
+\DoxyCodeLine{31 \textcolor{stringliteral}{         Write a minimal parser that can identify functions.}}
+\DoxyCodeLine{32 \textcolor{stringliteral}{         It just needs to detect the start and ending line of a function.}}
+\DoxyCodeLine{33 \textcolor{stringliteral}{         Programmatically comment out the first function, save to a temp file.}}
+\DoxyCodeLine{34 \textcolor{stringliteral}{         Try to compile the file by invoking the complier.}}
+\DoxyCodeLine{35 \textcolor{stringliteral}{         Check if there are compile errors, if yes, the function is called, if not, it is unused.}}
+\DoxyCodeLine{36 \textcolor{stringliteral}{         Continue with the next function. }}
+\DoxyCodeLine{37 \textcolor{stringliteral}{         Reference:https://stackoverflow.com/questions/33209302/removal-\/of-\/unused-\/or-\/redundant-\/code}}
+\DoxyCodeLine{38 \textcolor{stringliteral}{    "{}"{}"{}}}
+\DoxyCodeLine{39     type\_list=[\textcolor{stringliteral}{'int'},\textcolor{stringliteral}{'void'},\textcolor{stringliteral}{'char'},\textcolor{stringliteral}{'string'}]}
+\DoxyCodeLine{40     t=\textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{41     \textcolor{keywordflow}{for} type \textcolor{keywordflow}{in} type\_list:}
+\DoxyCodeLine{42         L=re.findall(type+\textcolor{stringliteral}{"{}\(\backslash\)s*[a-\/z0-\/9\_]\(\backslash\)s\(\backslash\)([a-\/z0-\/9\_ \(\backslash\)n\(\backslash\)t,\(\backslash\)r\(\backslash\)f\(\backslash\)v]\(\backslash\))\(\backslash\)s\(\backslash\)\{"{}},content)}
+\DoxyCodeLine{43         \textcolor{keywordflow}{for} y \textcolor{keywordflow}{in} L:}
+\DoxyCodeLine{44             y=y.replace(\textcolor{stringliteral}{"{}("{}},\textcolor{stringliteral}{"{}\(\backslash\)("{}})}
+\DoxyCodeLine{45             y=y.replace(\textcolor{stringliteral}{"{})"{}},\textcolor{stringliteral}{"{}\(\backslash\))"{}})}
+\DoxyCodeLine{46             x=re.search(y,content)}
+\DoxyCodeLine{47             first=x.span()[0]}
+\DoxyCodeLine{48             last=x.span()[1]}
+\DoxyCodeLine{49             count=1}
+\DoxyCodeLine{50             while(count!=0):}
+\DoxyCodeLine{51                 if(content[last]==\textcolor{stringliteral}{'\{'}):}
+\DoxyCodeLine{52                     count+=1}
+\DoxyCodeLine{53                 if(content[last]==\textcolor{stringliteral}{'\}'}):}
+\DoxyCodeLine{54                     count-\/=1}
+\DoxyCodeLine{55                 last+=1}
+\DoxyCodeLine{56             t=content[0:first]+content[last:]}
+\DoxyCodeLine{57         temp = open(\textcolor{stringliteral}{"{}temp.cpp"{}}, \textcolor{stringliteral}{"{}w"{}})}
+\DoxyCodeLine{58         temp.write(t)}
+\DoxyCodeLine{59         temp.close()}
+\DoxyCodeLine{60         g = subprocess.getstatusoutput(\textcolor{stringliteral}{"{}g++ temp.cpp"{}})}
+\DoxyCodeLine{61         if(g[1]==\textcolor{stringliteral}{"{}"{}}):}
+\DoxyCodeLine{62             content=t}
+\DoxyCodeLine{63     \textcolor{keywordflow}{return} content}
+\DoxyCodeLine{64 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{a00008_ad7bfa0660f05ca9a55b0b491cd9ace54}\label{a00008_ad7bfa0660f05ca9a55b0b491cd9ace54}} 
+\index{models@{models}!similarity@{similarity}}
+\index{similarity@{similarity}!models@{models}}
+\doxysubsubsection{\texorpdfstring{similarity()}{similarity()}}
+{\footnotesize\ttfamily def models.\+similarity (\begin{DoxyParamCaption}\item[{}]{s,  }\item[{}]{t }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Arguments    :
+    s   :(sorted)list of numbers
+    t   :(sorted)list of numbers
+Return type  :
+    returns a number in the range(0,1)
+Functionality:
+    Evaluates the cosine product of the two vectors
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{325 \textcolor{keyword}{def }similarity(s,t):}
+\DoxyCodeLine{326     }
+\DoxyCodeLine{327     \textcolor{stringliteral}{"{}"{}"{} }}
+\DoxyCodeLine{328 \textcolor{stringliteral}{    Arguments    :}}
+\DoxyCodeLine{329 \textcolor{stringliteral}{        s   :(sorted)list of numbers}}
+\DoxyCodeLine{330 \textcolor{stringliteral}{        t   :(sorted)list of numbers}}
+\DoxyCodeLine{331 \textcolor{stringliteral}{    Return type  :}}
+\DoxyCodeLine{332 \textcolor{stringliteral}{        returns a number in the range(0,1)}}
+\DoxyCodeLine{333 \textcolor{stringliteral}{    Functionality:}}
+\DoxyCodeLine{334 \textcolor{stringliteral}{        Evaluates the cosine product of the two vectors}}
+\DoxyCodeLine{335 \textcolor{stringliteral}{    "{}"{}"{}}}
+\DoxyCodeLine{336     x=min(s.size,t.size)}
+\DoxyCodeLine{337     s=s[-\/x:]}
+\DoxyCodeLine{338     t=t[-\/x:]}
+\DoxyCodeLine{339     \textcolor{keywordflow}{return} np.dot(s,t)/(np.linalg.norm(s)*np.linalg.norm(t))}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{a00008_a6d507e11be3d7f5665dbf0049d0ad6bd}\label{a00008_a6d507e11be3d7f5665dbf0049d0ad6bd}} 
+\index{models@{models}!tf\_idf@{tf\_idf}}
+\index{tf\_idf@{tf\_idf}!models@{models}}
+\doxysubsubsection{\texorpdfstring{tf\_idf()}{tf\_idf()}}
+{\footnotesize\ttfamily def models.\+tf\+\_\+idf (\begin{DoxyParamCaption}\item[{}]{word\+\_\+count\+\_\+in\+\_\+each\+\_\+file,  }\item[{}]{word\+\_\+count\+\_\+across\+\_\+documents,  }\item[{}]{list\+\_\+of\+\_\+paths,  }\item[{}]{list\+\_\+of\+\_\+files }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Arguments    :
+    list_of_paths              :list of source code files
+    list_of_files                  :It consists data of all the Users who have been SignedUp
+    word_count_in_each_file    :Frequency of word corresponding to each file as an array of dictionary
+    word_count_across_documents:Frequency of each word across as files corresponding to a particular assignment as dictionary
+Functionality:
+    It computes tf_idf vector corresponding to each file.
+    The tf_idf function is somewhat different from the original one
+    If we use the bag of words strategy then similarity is determined mostly by the variables which have maximum count in a file.
+    But similarity should depend more on core logic loke number of functions,operators loops etc.
+    The weight added for each word say 'x' in file 'f' is log(freq of x across all files corresponding to assignment/(freq of x in f*number of files))
+    Words which have low frequency in a file than average frequency across all files are given +ve weightage
+    Words which have high frequency in a file than average frequency across all files are given -ve weightage
+    Uniqueness is determined by high weightage words.
+\end{DoxyVerb}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{255 \textcolor{keyword}{def }tf\_idf(word\_count\_in\_each\_file,word\_count\_across\_documents,list\_of\_paths,list\_of\_files):}
+\DoxyCodeLine{256     \textcolor{stringliteral}{"{}"{}"{} Arguments    :}}
+\DoxyCodeLine{257 \textcolor{stringliteral}{        list\_of\_paths              :list of source code files}}
+\DoxyCodeLine{258 \textcolor{stringliteral}{        list\_of\_files                  :It consists data of all the Users who have been SignedUp}}
+\DoxyCodeLine{259 \textcolor{stringliteral}{        word\_count\_in\_each\_file    :Frequency of word corresponding to each file as an array of dictionary}}
+\DoxyCodeLine{260 \textcolor{stringliteral}{        word\_count\_across\_documents:Frequency of each word across as files corresponding to a particular assignment as dictionary}}
+\DoxyCodeLine{261 \textcolor{stringliteral}{    Functionality:}}
+\DoxyCodeLine{262 \textcolor{stringliteral}{        It computes tf\_idf vector corresponding to each file.}}
+\DoxyCodeLine{263 \textcolor{stringliteral}{        The tf\_idf function is somewhat different from the original one}}
+\DoxyCodeLine{264 \textcolor{stringliteral}{        If we use the bag of words strategy then similarity is determined mostly by the variables which have maximum count in a file.}}
+\DoxyCodeLine{265 \textcolor{stringliteral}{        But similarity should depend more on core logic loke number of functions,operators loops etc.}}
+\DoxyCodeLine{266 \textcolor{stringliteral}{        The weight added for each word say 'x' in file 'f' is log(freq of x across all files corresponding to assignment/(freq of x in f*number of files))}}
+\DoxyCodeLine{267 \textcolor{stringliteral}{        Words which have low frequency in a file than average frequency across all files are given +ve weightage}}
+\DoxyCodeLine{268 \textcolor{stringliteral}{        Words which have high frequency in a file than average frequency across all files are given -\/ve weightage}}
+\DoxyCodeLine{269 \textcolor{stringliteral}{        Uniqueness is determined by high weightage words.}}
+\DoxyCodeLine{270 \textcolor{stringliteral}{    "{}"{}"{}}}
+\DoxyCodeLine{271     similarity\_matrix=np.zeros((len(list\_of\_paths),len(list\_of\_paths)))}
+\DoxyCodeLine{272     tf\_idf\_vec=[]}
+\DoxyCodeLine{273     \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} range(len(list\_of\_paths)):}
+\DoxyCodeLine{274         temp=[]}
+\DoxyCodeLine{275         \textcolor{keywordflow}{for} j \textcolor{keywordflow}{in} word\_count\_in\_each\_file[i]:}
+\DoxyCodeLine{276             temp.append(word\_count\_in\_each\_file[i].get(j)*(-\/0.01+(math.log(word\_count\_across\_documents.get(j)/word\_count\_in\_each\_file[i].get(j)/len(list\_of\_paths)))))}
+\DoxyCodeLine{277         temp.sort()}
+\DoxyCodeLine{278         tf\_idf\_vec.append(temp)}
+\DoxyCodeLine{279 }
+\DoxyCodeLine{280     \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} range(len(list\_of\_paths)):}
+\DoxyCodeLine{281         similarity\_matrix[i,i]=1;}
+\DoxyCodeLine{282         \textcolor{keywordflow}{for} j \textcolor{keywordflow}{in} range(i+1,len(list\_of\_paths)):}
+\DoxyCodeLine{283             similarity\_matrix[i,j]=similarity(np.array(tf\_idf\_vec[i]),np.array(tf\_idf\_vec[j]))}
+\DoxyCodeLine{284             similarity\_matrix[j,i]=similarity\_matrix[i,j]}
+\DoxyCodeLine{285     }
+\DoxyCodeLine{286     txt\_file(similarity\_matrix,list\_of\_paths,list\_of\_files)}
+\DoxyCodeLine{287 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{a00008_ae9d41a08307e8914d368c6e18d9f52b5}\label{a00008_ae9d41a08307e8914d368c6e18d9f52b5}} 
+\index{models@{models}!txt\_file@{txt\_file}}
+\index{txt\_file@{txt\_file}!models@{models}}
+\doxysubsubsection{\texorpdfstring{txt\_file()}{txt\_file()}}
+{\footnotesize\ttfamily def models.\+txt\+\_\+file (\begin{DoxyParamCaption}\item[{}]{similarity\+\_\+matrix,  }\item[{}]{list\+\_\+of\+\_\+paths,  }\item[{}]{list\+\_\+of\+\_\+files }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Arguments    :
+    list_of_paths    :list of source code file names
+    similarity_matrix:2-dimensional matrix representing mutual similarity between each pair of files
+    list_of_files        :It consists data of all the Users who have been SignedUp
+Functionality:
+    Displaying the Percentage matching among files in text format and saving it as a csv file \end{DoxyVerb}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{288 \textcolor{keyword}{def }txt\_file(similarity\_matrix,list\_of\_paths,list\_of\_files):}
+\DoxyCodeLine{289     \textcolor{stringliteral}{"{}"{}"{} }}
+\DoxyCodeLine{290 \textcolor{stringliteral}{    Arguments    :}}
+\DoxyCodeLine{291 \textcolor{stringliteral}{        list\_of\_paths    :list of source code file names}}
+\DoxyCodeLine{292 \textcolor{stringliteral}{        similarity\_matrix:2-\/dimensional matrix representing mutual similarity between each pair of files}}
+\DoxyCodeLine{293 \textcolor{stringliteral}{        list\_of\_files        :It consists data of all the Users who have been SignedUp}}
+\DoxyCodeLine{294 \textcolor{stringliteral}{    Functionality:}}
+\DoxyCodeLine{295 \textcolor{stringliteral}{        Displaying the Percentage matching among files in text format and saving it as a csv file "{}"{}"{}}   }
+\DoxyCodeLine{296     result=open(\textcolor{stringliteral}{"{}media/result.txt"{}},\textcolor{stringliteral}{"{}w"{}})}
+\DoxyCodeLine{297     res=\textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{298     \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} range(len(list\_of\_paths)):}
+\DoxyCodeLine{299         \textcolor{keywordflow}{for} j \textcolor{keywordflow}{in} range(i+1,len(list\_of\_paths)):}
+\DoxyCodeLine{300             res+=\textcolor{stringliteral}{"{}similarity between "{}}+ list\_of\_files[i]+list\_of\_files[j]+\textcolor{stringliteral}{"{} = "{}}+str(similarity\_matrix[i][j])+\textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{301     result.write(res)}
+\DoxyCodeLine{302     csv\_file(list\_of\_files,similarity\_matrix)}
+\DoxyCodeLine{303 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{a00008_ad68fd9f59271bd6488f679c29f8c0d0d}\label{a00008_ad68fd9f59271bd6488f679c29f8c0d0d}} 
+\index{models@{models}!visualizer@{visualizer}}
+\index{visualizer@{visualizer}!models@{models}}
+\doxysubsubsection{\texorpdfstring{visualizer()}{visualizer()}}
+{\footnotesize\ttfamily def models.\+visualizer (\begin{DoxyParamCaption}\item[{}]{list\+\_\+of\+\_\+files,  }\item[{}]{similarity\+\_\+matrix }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Arguments    :
+    list_of_files    :list of source code file names
+    similarity_matrix:2-dimensional matrix representing mutual similarity between each pair of files
+Return type  :
+    Path of the saved image
+Functionality:
+    Plotting the output similarity_matrix and saving it as an image \end{DoxyVerb}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{65 \textcolor{keyword}{def }visualizer(list\_of\_files,similarity\_matrix):}
+\DoxyCodeLine{66     \textcolor{stringliteral}{"{}"{}"{} }}
+\DoxyCodeLine{67 \textcolor{stringliteral}{    Arguments    :}}
+\DoxyCodeLine{68 \textcolor{stringliteral}{        list\_of\_files    :list of source code file names}}
+\DoxyCodeLine{69 \textcolor{stringliteral}{        similarity\_matrix:2-\/dimensional matrix representing mutual similarity between each pair of files}}
+\DoxyCodeLine{70 \textcolor{stringliteral}{    Return type  :}}
+\DoxyCodeLine{71 \textcolor{stringliteral}{        Path of the saved image}}
+\DoxyCodeLine{72 \textcolor{stringliteral}{    Functionality:}}
+\DoxyCodeLine{73 \textcolor{stringliteral}{        Plotting the output similarity\_matrix and saving it as an image "{}"{}"{}}}
+\DoxyCodeLine{74     x=range(len(list\_of\_files)) }
+\DoxyCodeLine{75     y=range(len(list\_of\_files))}
+\DoxyCodeLine{76     xx,yy=np.meshgrid(x,y)}
+\DoxyCodeLine{77     z=similarity\_matrix[xx,yy]}
+\DoxyCodeLine{78     cmap =cm.get\_cmap(\textcolor{stringliteral}{"{}rainbow"{}},100)}
+\DoxyCodeLine{79     fig=plt.figure()}
+\DoxyCodeLine{80     ax=fig.add\_subplot(111)}
+\DoxyCodeLine{81     im=ax.matshow(z,cmap=cmap,vmin=0,vmax=1.01,origin=\textcolor{stringliteral}{'lower'})}
+\DoxyCodeLine{82     \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} range(len(list\_of\_files)):}
+\DoxyCodeLine{83         ax.text(i,i,\textcolor{stringliteral}{"{}none"{}},ha=\textcolor{stringliteral}{"{}center"{}}, va=\textcolor{stringliteral}{"{}center"{}}, color=\textcolor{stringliteral}{"{}k"{}})}
+\DoxyCodeLine{84         \textcolor{keywordflow}{for} j \textcolor{keywordflow}{in} range(i+1,len(list\_of\_files)):}
+\DoxyCodeLine{85             ax.text(j, i, int(similarity\_matrix[i,j]*100)/100,ha=\textcolor{stringliteral}{"{}center"{}}, va=\textcolor{stringliteral}{"{}center"{}}, color=\textcolor{stringliteral}{"{}k"{}})}
+\DoxyCodeLine{86             ax.text(i,j, int(similarity\_matrix[i,j]*100)/100,ha=\textcolor{stringliteral}{"{}center"{}}, va=\textcolor{stringliteral}{"{}center"{}}, color=\textcolor{stringliteral}{"{}k"{}})}
+\DoxyCodeLine{87     fig.colorbar(im,shrink=0.5)}
+\DoxyCodeLine{88     ax.set\_xticks(range(len(list\_of\_files)))}
+\DoxyCodeLine{89     ax.set\_yticks(range(len(list\_of\_files)))}
+\DoxyCodeLine{90     ax.set\_xticklabels(list\_of\_files,rotation=90)}
+\DoxyCodeLine{91     ax.set\_yticklabels(list\_of\_files)}
+\DoxyCodeLine{92     ax.tick\_params(labelsize=30/len(list\_of\_files))}
+\DoxyCodeLine{93     random=np.random.randint(1,100)}
+\DoxyCodeLine{94     path=\textcolor{stringliteral}{'result.png'}}
+\DoxyCodeLine{95     plt.savefig(\textcolor{stringliteral}{'media/'}+path)}
+\DoxyCodeLine{96 }
+
+\end{DoxyCode}

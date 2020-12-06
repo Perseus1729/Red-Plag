@@ -1,0 +1,111 @@
+\begin{theindex}
+
+  \item {authentication\_classes}
+    \subitem {views.DataUpload}, \hyperpage{17}
+    \subitem {views.UserViewSet}, \hyperpage{18}
+
+  \indexspace
+
+  \item {create\_user}
+    \subitem {views}, \hyperpage{13}
+  \item {csv\_file}
+    \subitem {models}, \hyperpage{5}
+
+  \indexspace
+
+  \item {data}
+    \subitem {models.add\_data}, \hyperpage{15}
+
+  \indexspace
+
+  \item {label}
+    \subitem {models.add\_data}, \hyperpage{15}
+
+  \indexspace
+
+  \item {models}, \hyperpage{5}
+    \subitem {csv\_file}, \hyperpage{5}
+    \subitem {preprocessing}, \hyperpage{6}
+    \subitem {remove\_comments}, \hyperpage{7}
+    \subitem {remove\_comments\_pythonfile}, \hyperpage{7}
+    \subitem {remove\_macros}, \hyperpage{8}
+    \subitem {remove\_redundant\_functions}, \hyperpage{9}
+    \subitem {similarity}, \hyperpage{10}
+    \subitem {tf\_idf}, \hyperpage{10}
+    \subitem {txt\_file}, \hyperpage{11}
+    \subitem {visualizer}, \hyperpage{12}
+  \item {models.add\_data}, \hyperpage{15}
+    \subitem {data}, \hyperpage{15}
+    \subitem {label}, \hyperpage{15}
+    \subitem {username}, \hyperpage{16}
+
+  \indexspace
+
+  \item {parser\_classes}
+    \subitem {views.DataUpload}, \hyperpage{17}
+  \item {permission\_classes}
+    \subitem {views.DataUpload}, \hyperpage{17}
+    \subitem {views.UserViewSet}, \hyperpage{18}
+  \item {post}
+    \subitem {views.DataUpload}, \hyperpage{16}
+  \item {preprocessing}
+    \subitem {models}, \hyperpage{6}
+
+  \indexspace
+
+  \item {queryset}
+    \subitem {views.UserViewSet}, \hyperpage{18}
+
+  \indexspace
+
+  \item {remove\_comments}
+    \subitem {models}, \hyperpage{7}
+  \item {remove\_comments\_pythonfile}
+    \subitem {models}, \hyperpage{7}
+  \item {remove\_macros}
+    \subitem {models}, \hyperpage{8}
+  \item {remove\_redundant\_functions}
+    \subitem {models}, \hyperpage{9}
+
+  \indexspace
+
+  \item {serializer\_class}
+    \subitem {views.DataUpload}, \hyperpage{18}
+    \subitem {views.UserViewSet}, \hyperpage{19}
+  \item {similarity}
+    \subitem {models}, \hyperpage{10}
+
+  \indexspace
+
+  \item {tf\_idf}
+    \subitem {models}, \hyperpage{10}
+  \item {txt\_file}
+    \subitem {models}, \hyperpage{11}
+
+  \indexspace
+
+  \item {username}
+    \subitem {models.add\_data}, \hyperpage{16}
+
+  \indexspace
+
+  \item {view\_files}
+    \subitem {views.DataUpload}, \hyperpage{17}
+  \item {views}, \hyperpage{12}
+    \subitem {create\_user}, \hyperpage{13}
+  \item {views.DataUpload}, \hyperpage{16}
+    \subitem {authentication\_classes}, \hyperpage{17}
+    \subitem {parser\_classes}, \hyperpage{17}
+    \subitem {permission\_classes}, \hyperpage{17}
+    \subitem {post}, \hyperpage{16}
+    \subitem {serializer\_class}, \hyperpage{18}
+    \subitem {view\_files}, \hyperpage{17}
+  \item {views.UserViewSet}, \hyperpage{18}
+    \subitem {authentication\_classes}, \hyperpage{18}
+    \subitem {permission\_classes}, \hyperpage{18}
+    \subitem {queryset}, \hyperpage{18}
+    \subitem {serializer\_class}, \hyperpage{19}
+  \item {visualizer}
+    \subitem {models}, \hyperpage{12}
+
+\end{theindex}

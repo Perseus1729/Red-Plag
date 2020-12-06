@@ -1,0 +1,110 @@
+\hypertarget{a00022}{}\doxysection{views.\+Data\+Upload Class Reference}
+\label{a00022}\index{views.DataUpload@{views.DataUpload}}
+Inheritance diagram for views.\+Data\+Upload\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{a00022}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{a00022_a23dadfc7b7e34087c43ed1b0194d45f0}{post}} (request, $\ast$args, $\ast$$\ast$kwargs)
+\item 
+def \mbox{\hyperlink{a00022_a3c3c8d5618318ddd25c90bb2ed54ba28}{view\+\_\+files}} (request)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+tuple \mbox{\hyperlink{a00022_ac372cb5b7d1d557d712018142130ff46}{authentication\+\_\+classes}} = (Token\+Authentication,)
+\item 
+tuple \mbox{\hyperlink{a00022_a97f306371b35066ee4b0166c709cdde3}{permission\+\_\+classes}} = (Is\+Authenticated,)
+\item 
+tuple \mbox{\hyperlink{a00022_ab3d80ff8d2437446fca818e71eaa5229}{parser\+\_\+classes}} = (Multi\+Part\+Parser, Form\+Parser)
+\item 
+\mbox{\hyperlink{a00022_a9d91681be5c49b839bdfd52329ed5330}{serializer\+\_\+class}} = Data\+Serializer
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{a00022_a23dadfc7b7e34087c43ed1b0194d45f0}\label{a00022_a23dadfc7b7e34087c43ed1b0194d45f0}} 
+\index{views.DataUpload@{views.DataUpload}!post@{post}}
+\index{post@{post}!views.DataUpload@{views.DataUpload}}
+\doxysubsubsection{\texorpdfstring{post()}{post()}}
+{\footnotesize\ttfamily def views.\+Data\+Upload.\+post (\begin{DoxyParamCaption}\item[{}]{request,  }\item[{$\ast$}]{args,  }\item[{$\ast$$\ast$}]{kwargs }\end{DoxyParamCaption})}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49     \textcolor{keyword}{def }post(request, *args, **kwargs):}
+\DoxyCodeLine{50         label=request.POST[\textcolor{stringliteral}{'label'}]}
+\DoxyCodeLine{51         username=request.POST[\textcolor{stringliteral}{'username'}]}
+\DoxyCodeLine{52         your\_file = request.FILES[\textcolor{stringliteral}{'data'}]}
+\DoxyCodeLine{53         add\_data.objects.create( username=username,label=label,data=your\_file)}
+\DoxyCodeLine{54         t=tarfile.open(\textcolor{stringliteral}{'media/'}+str(your\_file),\textcolor{stringliteral}{'r'})}
+\DoxyCodeLine{55         L=t.getnames()}
+\DoxyCodeLine{56         t.extractall(path=\textcolor{stringliteral}{'media/'})}
+\DoxyCodeLine{57         \textcolor{keywordflow}{return} JsonResponse(\textcolor{stringliteral}{"{}success"{}},safe=\textcolor{keyword}{False})}
+\DoxyCodeLine{58  }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{a00022_a3c3c8d5618318ddd25c90bb2ed54ba28}\label{a00022_a3c3c8d5618318ddd25c90bb2ed54ba28}} 
+\index{views.DataUpload@{views.DataUpload}!view\_files@{view\_files}}
+\index{view\_files@{view\_files}!views.DataUpload@{views.DataUpload}}
+\doxysubsubsection{\texorpdfstring{view\_files()}{view\_files()}}
+{\footnotesize\ttfamily def views.\+Data\+Upload.\+view\+\_\+files (\begin{DoxyParamCaption}\item[{}]{request }\end{DoxyParamCaption})}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60     \textcolor{keyword}{def }view\_files(request):}
+\DoxyCodeLine{61         data = request.POST}
+\DoxyCodeLine{62         your\_files=add\_data.objects.filter(label=data[\textcolor{stringliteral}{'label'}])}
+\DoxyCodeLine{63         if(\textcolor{keywordflow}{not} your\_files.exists()):}
+\DoxyCodeLine{64             \textcolor{keywordflow}{return} JsonResponse(\textcolor{stringliteral}{"{}You dont have any files"{}},safe=\textcolor{keyword}{False})}
+\DoxyCodeLine{65         l=[]}
+\DoxyCodeLine{66         users=[]}
+\DoxyCodeLine{67         \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} your\_files:}
+\DoxyCodeLine{68             t=tarfile.open(\textcolor{stringliteral}{'media/'}+str(i.data.name),\textcolor{stringliteral}{'r'})}
+\DoxyCodeLine{69             L=t.getnames()}
+\DoxyCodeLine{70             \textcolor{keywordflow}{for} k \textcolor{keywordflow}{in} L:}
+\DoxyCodeLine{71                 l.append(k)}
+\DoxyCodeLine{72                 \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{73                     users.append(k.split(\textcolor{stringliteral}{'/'})[1])}
+\DoxyCodeLine{74                 \textcolor{keywordflow}{except}:}
+\DoxyCodeLine{75                     \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{76         preprocessing(l,users)}
+\DoxyCodeLine{77         data=\{\textcolor{stringliteral}{'png'}:\textcolor{stringliteral}{'result.png'},\textcolor{stringliteral}{'txt'}:\textcolor{stringliteral}{'result.txt'},\textcolor{stringliteral}{'csv'}:\textcolor{stringliteral}{'result.csv'}\}}
+\DoxyCodeLine{78         \textcolor{keywordflow}{return} JsonResponse(data, safe=\textcolor{keyword}{False})}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{a00022_ac372cb5b7d1d557d712018142130ff46}\label{a00022_ac372cb5b7d1d557d712018142130ff46}} 
+\index{views.DataUpload@{views.DataUpload}!authentication\_classes@{authentication\_classes}}
+\index{authentication\_classes@{authentication\_classes}!views.DataUpload@{views.DataUpload}}
+\doxysubsubsection{\texorpdfstring{authentication\_classes}{authentication\_classes}}
+{\footnotesize\ttfamily tuple views.\+Data\+Upload.\+authentication\+\_\+classes = (Token\+Authentication,)\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{a00022_ab3d80ff8d2437446fca818e71eaa5229}\label{a00022_ab3d80ff8d2437446fca818e71eaa5229}} 
+\index{views.DataUpload@{views.DataUpload}!parser\_classes@{parser\_classes}}
+\index{parser\_classes@{parser\_classes}!views.DataUpload@{views.DataUpload}}
+\doxysubsubsection{\texorpdfstring{parser\_classes}{parser\_classes}}
+{\footnotesize\ttfamily tuple views.\+Data\+Upload.\+parser\+\_\+classes = (Multi\+Part\+Parser, Form\+Parser)\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{a00022_a97f306371b35066ee4b0166c709cdde3}\label{a00022_a97f306371b35066ee4b0166c709cdde3}} 
+\index{views.DataUpload@{views.DataUpload}!permission\_classes@{permission\_classes}}
+\index{permission\_classes@{permission\_classes}!views.DataUpload@{views.DataUpload}}
+\doxysubsubsection{\texorpdfstring{permission\_classes}{permission\_classes}}
+{\footnotesize\ttfamily tuple views.\+Data\+Upload.\+permission\+\_\+classes = (Is\+Authenticated,)\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{a00022_a9d91681be5c49b839bdfd52329ed5330}\label{a00022_a9d91681be5c49b839bdfd52329ed5330}} 
+\index{views.DataUpload@{views.DataUpload}!serializer\_class@{serializer\_class}}
+\index{serializer\_class@{serializer\_class}!views.DataUpload@{views.DataUpload}}
+\doxysubsubsection{\texorpdfstring{serializer\_class}{serializer\_class}}
+{\footnotesize\ttfamily views.\+Data\+Upload.\+serializer\+\_\+class = Data\+Serializer\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+views.\+py\end{DoxyCompactItemize}
