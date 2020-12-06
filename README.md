@@ -1,13 +1,14 @@
 # CodeFrisk
 
 <pre>Meet our Team</pre>
-<h2>Member Name        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;        Contribution to the Project</h1>
+<h2>Member Name        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;        Contribution to the Project</h2>
 <pre>
 Pokala Mohith 	                 Backend and Frontend contributions, contributions for core logic implementation<br />
 Poluparthi Preetham 	         CoreLogic Contribution,Documentation<br />
 Punna Hitesh Kumar 	         Front end implementation, Styling the website,Documentation <br />
 Thivesh Chandra Mattti       	 Frontend implementations,Visualizaion,Core Logic Implementation<br />
 </pre>
+
 # Softwares Used and Prerequisites
 
 First Install Python3 which comes along with pip.The website uses Angular10 for the frontend and Django for the backend. The website is compatible with all versions of Python from Python3.The backend must me hosted from a pc which uses linux with g++ installed or you need WSL if you are using Windows.You need to install django-corheaders and django-rest api after installing django and matplotlib and numpy after insatlling python,using the commands 
