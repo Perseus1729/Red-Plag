@@ -211,41 +211,36 @@ def preprocessing(list_of_files,usernames):
         myfile.close()
         
         if(files[-4:]=='.cpp'):
-            remove_comments(content)
-            remove_redundant_functions(content)
-            remove_macros(content)
             content=remove_comments(content)
             content=remove_redundant_functions(content)
             content=remove_macros(content)
+            
+        elif(files[-3:]=='.py'):
+            content=remove_comments_pythonfile(content)
+      
+        
+        sym=[",",";","{","}",")","(","[","]","+","-","*","/","%","|","&","^","!","=","<",">","?","'",'"','#','.']
+        for i in sym:
+            content=content.replace(i," "+i+" ")
+        
+        if(files[-4:]=='.cpp'):
             content=content.replace("while","for")
             content=content.replace("switch","if")
             content=content.replace("case","else if")
             content=content.replace("default","else")
             content=content.replace("do","")
-            #content=content.replace("{","")
-            #content=content.replace("}","")
-            #content=content.replace("(","")
-            #content=content.replace(")","")
             content=content.replace(";","")
             content=content.replace(",","")
             content=content.replace("'","")
             content=content.replace('"',"")
-            #content=content.replace("[","")
-            #content=content.replace("]","")
             
-      elif(files[-3:]=='.py'):
-            content=remove_comments_pythonfile(content)
+        elif(files[-3:]=='.py'):
             content=content.replace('while','for')
             content=content.replace('switch','if')
             content=content.replace('case','elif')
             content=content.replace('default','else')
             content=content.replace('do','')
             content=re.sub(':|\'|\"','',content)
-        
-        sym=[",",";","{","}",")","(","[","]","+","-","*","/","%","|","&","^","!","=","<",">","?","'",'"','#','.']
-        for i in sym:
-            content=content.replace(i," "+i+" ")
-        
         while(content.find('/*')!=-1):
             i=content.find('/*')
             j=content.find('*/')
