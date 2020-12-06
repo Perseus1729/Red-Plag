@@ -1,6 +1,6 @@
 # CodeFrisk
 
-Meet our Team
+<pre>Meet our Team</pre>
 **Member Name 	                 Contribution to the Project**<br />
 <pre>
 Pokala Mohith 	                 Backend and Frontend contributions, contributions for core logic implementation<br />
