@@ -1,7 +1,7 @@
 # CodeFrisk
 
 <h3>Meet our Team</h3>
-<h4>Member Name        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;      Contribution to the Project</h4>
+<h4>Member Name&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contribution to the Project</h4>
 <pre>
 Pokala Mohith 	                 Backend and Frontend contributions, contributions for core logic implementation<br />
 Poluparthi Preetham 	         CoreLogic Contribution,Documentation<br />
@@ -11,7 +11,11 @@ Thivesh Chandra Mattti       	 Frontend implementations,Visualizaion,Core Logic 
 
 # Softwares Used and Prerequisites
 
-First Install Python3 which comes along with pip.The website uses Angular10 for the frontend and Django for the backend. The website is compatible with all versions of Python from Python3.The backend must me hosted from a pc which uses linux with g++ installed or you need WSL if you are using Windows.You need to install django-corheaders and django-rest api after installing django and matplotlib and numpy after insatlling python,using the commands 
+First Install Python3 which comes along with pip.<br />
+The website uses Angular10 for the frontend and Django for the backend.<br />
+The website is compatible with all versions of Python from Python3.<br />
+The backend must me hosted from a pc which uses linux with g++ installed or you need WSL if you are using Windows.<br />
+You need to install django-corheaders and django-rest api after installing django and matplotlib and numpy after insatlling python,using the commands 
 
 ```diff
  python3 -m pip install django-cors-headers
