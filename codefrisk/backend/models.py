@@ -60,6 +60,7 @@ def remove_redundant_functions(content):
         g = subprocess.getstatusoutput("g++ temp.cpp")
         if(g[1]==""):
             content=t
+    return content
 
 def visualizer(list_of_files,similarity_matrix):
     """ 
@@ -79,7 +80,7 @@ def visualizer(list_of_files,similarity_matrix):
     ax=fig.add_subplot(111)
     im=ax.matshow(z,cmap=cmap,vmin=0,vmax=1.01,origin='lower')
     for i in range(len(list_of_files)):
-        ax.text(i,i,1,ha="center", va="center", color="k")
+        ax.text(i,i,"none",ha="center", va="center", color="k")
         for j in range(i+1,len(list_of_files)):
             ax.text(j, i, int(similarity_matrix[i,j]*100)/100,ha="center", va="center", color="k")
             ax.text(i,j, int(similarity_matrix[i,j]*100)/100,ha="center", va="center", color="k")
@@ -179,9 +180,23 @@ def preprocessing(list_of_files,usernames):
             remove_comments(content)
             remove_redundant_functions(content)
             remove_macros(content)
+            content=remove_comments(content)
+            content=remove_redundant_functions(content)
+            content=remove_macros(content)
             content=content.replace("while","for")
             content=content.replace("switch","if")
             content=content.replace("case","else if")
+            content=content.replace("do","")
+            #content=content.replace("{","")
+            #content=content.replace("}","")
+            #content=content.replace("(","")
+            #content=content.replace(")","")
+            content=content.replace(";","")
+            content=content.replace(",","")
+            content=content.replace("'","")
+            content=content.replace('"',"")
+            #content=content.replace("[","")
+            #content=content.replace("]","")
         
         sym=[",",";","{","}",")","(","[","]","+","-","*","/","%","|","&","^","!","=","<",">","?","'",'"','#','.']
         for i in sym:
@@ -205,13 +220,22 @@ def tf_idf(word_count_in_each_file,word_count_across_documents,list_of_files,use
     """ Arguments    :
         list_of_files              :list of source code files
         usernames                  :It consists data of all the Users who have been SignedUp
-        word_count_in_each_file    :
-        word_count_across_documents:
+        word_count_in_each_file    :Frequency of word corresponding to each file as an array of dictionary
+        word_count_across_documents:Frequency of each word across as files corresponding to a particular assignment as dictionary
     Return type  :
         It returns "txt_file()" function as Output
-    Functionality:"""
+    Functionality:
+        It computes tf_idf vector corresponding to each file.
+        The tf_idf function is somewhat different from the original one
+        If we use the bag of words strategy then similarity is determined mostly by the variables which have maximum count in a file.
+        But similarity should depend more on core logic loke number of functions,operators loops etc.
+        The weight added for each word say 'x' in file 'f' is -0.01+log(freq of x across all files corresponding to assignment/(freq of x in f*number of files))
+        -0.01 is added so that words which have equal distribution across all files are given negative weightage.
+        Words which have low frequency in a file than average frequency across all files are given high weightage
+        Words which have high frequency in a file than average frequency across all files are given low weightage
+        Uniqueness is determined by high weightage words.
+    """
     similarity_matrix=np.zeros((len(list_of_files),len(list_of_files)))
-    """ Computing tf_idf vector for each file"""
     tf_idf_vec=[]
     for i in range(len(list_of_files)):
         temp=[]
