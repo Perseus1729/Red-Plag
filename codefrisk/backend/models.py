@@ -168,6 +168,21 @@ def remove_comments(file_content):
     """remove comments"""
     return content
 
+def remove_comments_pythonfile(file_content):
+    """
+    Arguments:
+        file_content: string storing the source code in python
+    Return type: updated string
+    Functionality:
+        All commments in the code are replaced.
+    Logic Used:
+        Using Regex detect substrings starting with # and ending with \n 
+        Similarly detect substrings starting with ''' and ending with '''
+    """
+    pattern=re.compile('#.*?$|\'\'\'.*?\'\'\'|\"\"\".*?\"\"\"',re.DOTALL|re.MULTILINE)
+    content=re.sub(pattern,'',file_content)
+    return content
+
 def preprocessing(list_of_files,usernames):
     """
     Core logic is based on the Bag_of_Words
@@ -205,6 +220,7 @@ def preprocessing(list_of_files,usernames):
             content=content.replace("while","for")
             content=content.replace("switch","if")
             content=content.replace("case","else if")
+            content=content.replace("default","else")
             content=content.replace("do","")
             #content=content.replace("{","")
             #content=content.replace("}","")
@@ -216,6 +232,15 @@ def preprocessing(list_of_files,usernames):
             content=content.replace('"',"")
             #content=content.replace("[","")
             #content=content.replace("]","")
+            
+      elif(files[-3:]=='.py'):
+            content=remove_comments_pythonfile(content)
+            content=content.replace('while','for')
+            content=content.replace('switch','if')
+            content=content.replace('case','elif')
+            content=content.replace('default','else')
+            content=content.replace('do','')
+            content=re.sub(':|\'|\"','',content)
         
         sym=[",",";","{","}",")","(","[","]","+","-","*","/","%","|","&","^","!","=","<",">","?","'",'"','#','.']
         for i in sym:
