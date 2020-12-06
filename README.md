@@ -6,23 +6,37 @@ Poluparthi Preetham 	CoreLogic Contribution,Documentation
 Punna Hitesh Kumar 	Front end implementation, Styling the website,Documentation
 Thivesh Chandra Mattti 	Frontend implementations,Visualizaion,Core Logic Implementation
 
-Softwares Used and Prerequisites
+# Softwares Used and Prerequisites
 
 First Install Python3 which comes along with pip.The website uses Angular10 for the frontend and Django for the backend. The website is compatible with all versions of Python from Python3.The backend must me hosted from a pc which uses linux with g++ installed or you need WSL if you are using Windows.You need to install django-corheaders and django-rest api after installing django.
 
 Install matplotlib and numpy using pip:pip3 install numpy ,pip3 install matplotlib
 
-Refer to following links:
+### Refer to following links:
+
 Angular:https://angular.io/guide/setup-local
+
 Node JS:https://nodejs.org/en/download/
+
 Django:https://docs.djangoproject.com/en/3.1/howto
+
 Django-cors-headers:https://pypi.org/project/django-cors-headers/
+
 Django-restapi:https://www.django-rest-framework.org/#installation
 
-Steps to run the code:
-    clone the github repository using git clone https://github.com/mohithpokala/Project. First Create a django-superuser.Run python manage.py createsuperuser by starting a terminal inside 'codefrisk' directory.Follow the steps as prompted by the terminal.After this step run the following three commands in the same sequence 1)python manage.py makemigrations 2)python manage.py migrate 3) python manage.py runserver.Now You hosted the backend.
+# Steps to run the code:
+ ## Backend
+ Clone the github repository using git clone https://github.com/mohithpokala/Project. 
+ 
+ First Create a django-superuser.Run python manage.py createsuperuser by starting a terminal inside 'codefrisk' directory.
+ 
+ Follow the steps as prompted by the terminal.
+ 
+ After this step run the following three commands in the same sequence 1)python manage.py makemigrations 2)python manage.py migrate 3) python manage.py runserver.
+ 
+ Now You hosted the backend.
     
-    To Start the bacend 
+ To Start the bacend 
 
 What has been implemented so far
 
