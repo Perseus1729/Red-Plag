@@ -39,9 +39,20 @@ Django-restapi:https://www.django-rest-framework.org/#installation
  # Frontend
  Migrate to the interface folder.
  
+ ```diff
+- text in red
++ text in green
+! text in orange
+# text in gray
+@@ text in purple (and bold)@@
+```
+
  Run 
- ! ng serve --open
+ ``` diff 
+ -ng serve --open
+ ```
  
+ <p style='color:red'>This is some red text.</p>
  If you get a jquery error runn the followong commands on terminal.
     
        npm install jquery
