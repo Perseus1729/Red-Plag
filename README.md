@@ -1,10 +1,10 @@
 # CodeFrisk
 Meet our Team
 Member Name 	                            Contribution to the Project<br />
-Pokala Mohith 	               Backend and Frontend contributions, contributions for core logic implementation
-Poluparthi Preetham 	                  CoreLogic Contribution,Documentation
-Punna Hitesh Kumar 	            Front end implementation, Styling the website,Documentation 
-Thivesh Chandra Mattti       	Frontend implementations,Visualizaion,Core Logic Implementation
+Pokala Mohith 	               Backend and Frontend contributions, contributions for core logic implementation<br />
+Poluparthi Preetham 	                  CoreLogic Contribution,Documentation<br />
+Punna Hitesh Kumar 	            Front end implementation, Styling the website,Documentation <br />
+Thivesh Chandra Mattti       	Frontend implementations,Visualizaion,Core Logic Implementation<br />
 
 # Softwares Used and Prerequisites
 
@@ -36,9 +36,9 @@ Django-restapi:https://www.django-rest-framework.org/#installation
  Clone the github repository using git clone https://github.com/mohithpokala/Project. 
  
  First Create a django-superuser.Go to the Directory containing manage.py("/Project/codefrisk/"), 
- now Run the following command in terminal " python manage.py createsuperuser ".
+ now Run the following command in terminal " python manage.py createsuperuser ".<br />
  
- Follow the steps as prompted by the terminal.
+ Follow the steps as prompted by the terminal.<br />
  
  After this step run the following three commands in the same sequence 
  ``` diff
