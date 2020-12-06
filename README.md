@@ -1,7 +1,7 @@
 # CodeFrisk
 
 <pre>Meet our Team</pre>
-<h1>Member Name               Contribution to the Project</h1>
+<h2>Member Name        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;        Contribution to the Project</h1>
 <pre>
 Pokala Mohith 	                 Backend and Frontend contributions, contributions for core logic implementation<br />
 Poluparthi Preetham 	         CoreLogic Contribution,Documentation<br />
