@@ -3,10 +3,10 @@
 Meet our Team
 
 Member Name 	                 Contribution to the Project<br />
-Pokala Mohith 	               Backend and Frontend contributions, contributions for core logic implementation<br />
+Pokala Mohith 	                 Backend and Frontend contributions, contributions for core logic implementation<br />
 Poluparthi Preetham 	         CoreLogic Contribution,Documentation<br />
-Punna Hitesh Kumar 	          Front end implementation, Styling the website,Documentation <br />
-Thivesh Chandra Mattti       	Frontend implementations,Visualizaion,Core Logic Implementation<br />
+Punna Hitesh Kumar 	         Front end implementation, Styling the website,Documentation <br />
+Thivesh Chandra Mattti       	 Frontend implementations,Visualizaion,Core Logic Implementation<br />
 </pre>
 # Softwares Used and Prerequisites
 
