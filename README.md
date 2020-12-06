@@ -1,26 +1,28 @@
 # CodeFrisk
 Meet our Team
 Member Name 	Contribution to the Project
-# Pokala Mohith 	 Backend and Frontend contributions, contributions for core logic implementation
-# Poluparthi Preetham 	CoreLogic Contribution,Documentation
-# Punna Hitesh Kumar 	Front end implementation, Styling the website,Documentation
-# Thivesh Chandra Mattti 	Frontend implementations,Visualizaion,Core Logic Implementation
-Getting Started
+Pokala Mohith 	 Backend and Frontend contributions, contributions for core logic implementation
+Poluparthi Preetham 	CoreLogic Contribution,Documentation
+Punna Hitesh Kumar 	Front end implementation, Styling the website,Documentation
+Thivesh Chandra Mattti 	Frontend implementations,Visualizaion,Core Logic Implementation
 
-This section is dedicated to explain how to run start the website and the backend server. The website uses Angular10 for the frontend and Django for the backend. The website is compatible with all versions of Python from Python3.
+Softwares Used and Prerequisites
 
-Prerequisites:
+First Install Python3 which comes along with pip.The website uses Angular10 for the frontend and Django for the backend. The website is compatible with all versions of Python from Python3.The backend must me hosted from a pc which uses linux with g++ installed or you need WSL if you are using Windows.You need to install django-corheaders and django-rest api after installing django.
 
-    You'll need to install Angular10, npm, and NodeJS for this project to work. The version of npm used is 6.14.8, Angular is 10.2.0, and NodeJS is 12.19.0.
-    The versions need not be exactly the same, but if any unintended bugs or the such do pop-up, keep in mind that this might be the reason why.
+Install matplotlib and numpy using pip:pip3 install numpy ,pip3 install matplotlib
+
+Refer to following links:
+Angular:https://angular.io/guide/setup-local
+Node JS:https://nodejs.org/en/download/
+Django:https://docs.djangoproject.com/en/3.1/howto
+Django-cors-headers:https://pypi.org/project/django-cors-headers/
+Django-restapi:https://www.django-rest-framework.org/#installation
 
 Steps to run the code:
-
-    Clone the repo to your local machine either by doing git clone <url-of-the-repo>, or by downloading it directly from github.
-    Navigate to the project folder, and open up the terminal (for Ubuntu) or command prompt (for Windows). Create/Activate a virtual environment (optional), and download Django from requirements.txt.
-    Navigate to "DjangoAPI" folder through the virtual-environment-activated-console, and type in the command python manage.py runserver to get the Django backend up and running.
-    Open another console at the project directory, and type in npm install all to make sure that all the required packages are present. Once it is done installing and verifying the packages, do ng serve --open to start the frontend. This will start the compilation process of the frontend, and open up the website in your default web browser.
-    Install this extension for chrome and activate it, to allow CORS requests to be passed.
+    clone the github repository using git clone https://github.com/mohithpokala/Project. First Create a django-superuser.Run python manage.py createsuperuser by starting a terminal inside 'codefrisk' directory.Follow the steps as prompted by the terminal.After this step run the following three commands in the same sequence 1)python manage.py makemigrations 2)python manage.py migrate 3) python manage.py runserver.Now You hosted the backend.
+    
+    To Start the bacend 
 
 What has been implemented so far
 
