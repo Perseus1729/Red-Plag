@@ -284,6 +284,7 @@ def tf_idf(word_count_in_each_file,word_count_across_documents,list_of_files,use
         tf_idf_vec.append(temp)
 
     for i in range(len(list_of_files)):
+        similarity_matrix[i,i]=1;
         for j in range(i+1,len(list_of_files)):
             similarity_matrix[i,j]=similarity(np.array(tf_idf_vec[i]),np.array(tf_idf_vec[j]))
             similarity_matrix[j,i]=similarity_matrix[i,j]
