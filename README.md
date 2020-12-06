@@ -76,7 +76,7 @@ Doxygen-GUI   :http://www.doxygen.org/download.html
  
  
 
-What has been implemented so far
+# What has been implemented so far
 
     A basic framework for the website has been created.
 
@@ -88,7 +88,7 @@ What has been implemented so far
 
     Core logic-wise a bag-of-words strategy along with tf-idf strategy after preprocesssing.
 
-The Theoretical Aspect
+# The Theoretical Aspect
 
 The two strategies we have attempted to implement here are:
 
