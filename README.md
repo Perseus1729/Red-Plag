@@ -1,6 +1,6 @@
 # CodeFrisk
 Meet our Team
-Member Name 	                            Contribution to the Project
+Member Name 	                            Contribution to the Project<br />
 Pokala Mohith 	               Backend and Frontend contributions, contributions for core logic implementation
 Poluparthi Preetham 	                  CoreLogic Contribution,Documentation
 Punna Hitesh Kumar 	            Front end implementation, Styling the website,Documentation 
