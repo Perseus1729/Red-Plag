@@ -92,7 +92,10 @@ Doxygen-GUI   :http://www.doxygen.org/download.html
 
 The two strategies we have attempted to implement here are:
 
-    Bag of Words strategy: For each document, a sorted vector of the word occurrences in the file are created. The cosine similarity between two vectors is returned as the degree of plagiarism.
+### Bag of Words strategy:
 
-    Tf-idf: This is slightly more polished than the Bag of Words strategy.We add a weight to each word based on how relavent the word is to the document.https://monkeylearn.com/blog/what-is-tf-idf/#:~:text=TF%2DIDF%20is%20a%20statistical,across%20a%20set%20of%20documents
+For each document, a sorted vector of the word occurrences in the file are created. The cosine similarity between two vectors is returned as the degree of plagiarism.
+
+###    Tf-idf:
+This is slightly more polished than the Bag of Words strategy.We add a weight to each word based on how relavent the word is to the document.https://monkeylearn.com/blog/what-is-tf-idf/#:~:text=TF%2DIDF%20is%20a%20statistical,across%20a%20set%20of%20documents
 
