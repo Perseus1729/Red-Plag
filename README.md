@@ -39,13 +39,14 @@ Django-restapi:https://www.django-rest-framework.org/#installation
  # Frontend
  Migrate to the interface folder.
  
- Run ng serve --open
+ Run 
+ ! ng serve --open
  
- If you get a jquery error  Folloe these steps 
+ If you get a jquery error runn the followong commands on terminal.
     
-       Run npm install jquery
+       npm install jquery
        
-       Run npm install bootstrap
+       npm install bootstrap
  
  
 
