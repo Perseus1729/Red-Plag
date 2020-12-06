@@ -36,7 +36,18 @@ Django-restapi:https://www.django-rest-framework.org/#installation
  
  Now You hosted the backend.
     
- To Start the bacend 
+ # Frontend
+ Migrate to the interface folder.
+ 
+ Run ng serve --open
+ 
+ If you get a jquery error  Folloe these steps 
+    
+       Run npm install jquery
+       
+       Run npm install bootstrap
+ 
+ 
 
 What has been implemented so far
 
