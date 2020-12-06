@@ -8,15 +8,19 @@ Thivesh Chandra Mattti       	Frontend implementations,Visualizaion,Core Logic I
 
 # Softwares Used and Prerequisites
 
-First Install Python3 which comes along with pip.The website uses Angular10 for the frontend and Django for the backend. The website is compatible with all versions of Python from Python3.The backend must me hosted from a pc which uses linux with g++ installed or you need WSL if you are using Windows.You need to install django-corheaders and django-rest api after installing django,using the commands 
-python3 -m pip install django-cors-headers, and
-python3 -m pip install djangorestframework.
+First Install Python3 which comes along with pip.The website uses Angular10 for the frontend and Django for the backend. The website is compatible with all versions of Python from Python3.The backend must me hosted from a pc which uses linux with g++ installed or you need WSL if you are using Windows.You need to install django-corheaders and django-rest api after installing django and matplotlib and numpy after insatlling python,using the commands 
 
-Install matplotlib and numpy using pip:pip3 install numpy==1.19.3,
-pip3 install matplotlib
+```diff
+ python3 -m pip install django-cors-headers
 
+ python3 -m pip install djangorestframework
+
+ pip3 install numpy==1.19.3
+
+ pip3 install matplotlib
+
+```
 ### Refer to following links:
-
 Angular:https://angular.io/guide/setup-local
 
 Node JS:https://nodejs.org/en/download/
@@ -37,29 +41,20 @@ Django-restapi:https://www.django-rest-framework.org/#installation
  Follow the steps as prompted by the terminal.
  
  After this step run the following three commands in the same sequence 
- 1)python manage.py makemigrations 
- 2)python manage.py migrate 
- 3)python manage.py runserver.
- 
+ ``` diff
+  python manage.py makemigrations 
+  python manage.py migrate 
+  python manage.py runserver.
+ ```
  Now You hosted the backend.
     
  # Frontend
  Migrate to the interface folder.
- 
- ```diff
-- text in red
-+ text in green
-! text in orange
-# text in gray
-@@ text in purple (and bold)@@
-```
 
  Run 
  ``` diff 
- -ng serve --open
+ ng serve --open
  ```
- 
- <p style='color:red'>This is some red text.</p>
  If you get a jquery error runn the followong commands on terminal.
     
        npm install jquery
