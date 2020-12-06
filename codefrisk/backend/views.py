@@ -51,39 +51,28 @@ class DataUpload(viewsets.ModelViewSet):
         username=request.POST['username']
         your_file = request.FILES['data']
         add_data.objects.create( username=username,label=label,data=your_file)
-        #print(type(your_file))
         t=tarfile.open('media/'+str(your_file),'r')
         L=t.getnames()
-        #print(L)
         t.extractall(path='media/')
-        #for file in L:
-        #    t.extract(file)
         return JsonResponse("success",safe=False)
  
     @csrf_exempt
     def view_files(request):
         data = request.POST
-        #print(request.FILES)
         your_files=add_data.objects.filter(label=data['label'])
         if(not your_files.exists()):
             return JsonResponse("You dont have any files",safe=False)
-        #print(your_files)
         l=[]
         users=[]
         for i in your_files:
-            #print(i.data.name)
             t=tarfile.open('media/'+str(i.data.name),'r')
             L=t.getnames()
-            #print(L)
             for k in L:
                 l.append(k)
-                #print(k)
                 try:
                     users.append(k.split('/')[1])
                 except:
                     pass
-            #l.append(i.data.name)
-            #users.append(i.username)
-        path=preprocessing(l,users)
-        data={'png':path,'txt':'result.txt','csv':'result.csv'}
+        preprocessing(l,users)
+        data={'png':'result.png','txt':'result.txt','csv':'result.csv'}
         return JsonResponse(data, safe=False)
