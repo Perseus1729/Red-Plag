@@ -62,34 +62,34 @@ def remove_redundant_functions(content):
             content=t
     return content
 
-def visualizer(list_of_paths,similarity_matrix):
+def visualizer(list_of_files,similarity_matrix):
     """ 
     Arguments    :
-        list_of_paths    :list of source code files
+        list_of_files    :list of source code file names
         similarity_matrix:2-dimensional matrix representing mutual similarity between each pair of files
     Return type  :
         Path of the saved image
     Functionality:
         Plotting the output similarity_matrix and saving it as an image """
-    x=range(len(list_of_paths)) 
-    y=range(len(list_of_paths))
+    x=range(len(list_of_files)) 
+    y=range(len(list_of_files))
     xx,yy=np.meshgrid(x,y)
     z=similarity_matrix[xx,yy]
     cmap =cm.get_cmap("rainbow",100)
     fig=plt.figure()
     ax=fig.add_subplot(111)
     im=ax.matshow(z,cmap=cmap,vmin=0,vmax=1.01,origin='lower')
-    for i in range(len(list_of_paths)):
+    for i in range(len(list_of_files)):
         ax.text(i,i,"none",ha="center", va="center", color="k")
-        for j in range(i+1,len(list_of_paths)):
+        for j in range(i+1,len(list_of_files)):
             ax.text(j, i, int(similarity_matrix[i,j]*100)/100,ha="center", va="center", color="k")
             ax.text(i,j, int(similarity_matrix[i,j]*100)/100,ha="center", va="center", color="k")
     fig.colorbar(im,shrink=0.5)
-    ax.set_xticks(range(len(list_of_paths)))
-    ax.set_yticks(range(len(list_of_paths)))
-    ax.set_xticklabels(list_of_paths,rotation=90)
-    ax.set_yticklabels(list_of_paths)
-    ax.tick_params(labelsize=30/len(list_of_paths))
+    ax.set_xticks(range(len(list_of_files)))
+    ax.set_yticks(range(len(list_of_files)))
+    ax.set_xticklabels(list_of_files,rotation=90)
+    ax.set_yticklabels(list_of_files)
+    ax.tick_params(labelsize=30/len(list_of_files))
     random=np.random.randint(1,100)
     path='result.png'
     plt.savefig('media/'+path)
@@ -263,10 +263,9 @@ def tf_idf(word_count_in_each_file,word_count_across_documents,list_of_paths,lis
         The tf_idf function is somewhat different from the original one
         If we use the bag of words strategy then similarity is determined mostly by the variables which have maximum count in a file.
         But similarity should depend more on core logic loke number of functions,operators loops etc.
-        The weight added for each word say 'x' in file 'f' is -0.01+log(freq of x across all files corresponding to assignment/(freq of x in f*number of files))
-        -0.01 is added so that words which have equal distribution across all files are given negative weightage.
-        Words which have low frequency in a file than average frequency across all files are given high weightage
-        Words which have high frequency in a file than average frequency across all files are given low weightage
+        The weight added for each word say 'x' in file 'f' is log(freq of x across all files corresponding to assignment/(freq of x in f*number of files))
+        Words which have low frequency in a file than average frequency across all files are given +ve weightage
+        Words which have high frequency in a file than average frequency across all files are given -ve weightage
         Uniqueness is determined by high weightage words.
     """
     similarity_matrix=np.zeros((len(list_of_paths),len(list_of_paths)))
@@ -289,7 +288,7 @@ def tf_idf(word_count_in_each_file,word_count_across_documents,list_of_paths,lis
 def txt_file(similarity_matrix,list_of_paths,list_of_files):
     """ 
     Arguments    :
-        list_of_paths    :list of source code files
+        list_of_paths    :list of source code file names
         similarity_matrix:2-dimensional matrix representing mutual similarity between each pair of files
         list_of_files        :It consists data of all the Users who have been SignedUp
     Functionality:
@@ -298,31 +297,31 @@ def txt_file(similarity_matrix,list_of_paths,list_of_files):
     res=""
     for i in range(len(list_of_paths)):
         for j in range(i+1,len(list_of_paths)):
-            res+="similarity between "+ list_of_paths[i]+" submitted by "+list_of_files[i]+" and "+list_of_paths[j]+" submitted by "+list_of_files[j]+" = "+str(similarity_matrix[i][j])+"\n"
+            res+="similarity between "+ list_of_files[i]+list_of_files[j]+" = "+str(similarity_matrix[i][j])+"\n"
     result.write(res)
-    csv_file(list_of_paths,similarity_matrix)
+    csv_file(list_of_files,similarity_matrix)
 
-def csv_file(list_of_paths,similarity_matrix):
+def csv_file(list_of_files,similarity_matrix):
     #""" Interpreting the Output data as a CSV file ,
     #where each element represent the percentage matching between the file 
     #corresponding to a row and column"""
     """ 
     Arguments    :
-        list_of_paths    :list of source code files
+        list_of_files    :list of source code file names
         similarity_matrix:2-dimensional matrix representing mutual similarity between each pair of files
     Functionality:
         Plotting the output similarity_matrix and saving it as an csv file 
            
     """
     f=similarity_matrix.tolist()
-    files=['']+list_of_paths
-    for x in range(len(list_of_paths)):
-        f[x]=[list_of_paths[x]]+f[x]
+    files=['']+list_of_files
+    for x in range(len(list_of_files)):
+        f[x]=[list_of_files[x]]+f[x]
     f=[files]+f
     with open("media/result.csv", "w+") as myCsv:
         csvWriter = csv.writer(myCsv, delimiter=',')
         csvWriter.writerows(f)
-    visualizer(list_of_paths,similarity_matrix)
+    visualizer(list_of_files,similarity_matrix)
 def similarity(s,t):
     
     """ 
