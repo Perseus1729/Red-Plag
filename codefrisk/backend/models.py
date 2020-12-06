@@ -24,7 +24,7 @@ def remove_redundant_functions(content):
     """
     Arguments:
         content: string storing the source code
-    Return type: this is void function.The string passed will be updated
+    Return type: updated string
     Functionality:
         redundant functions in a source code are removed
     Logic Used:
@@ -97,6 +97,16 @@ def visualizer(list_of_files,similarity_matrix):
 
 def remove_macros(file_content):
 
+    """
+    Arguments:
+        file_content: string storing the source code
+    Return type: updated string
+    Functionality:
+        All macros in the code are replaced.
+    Logic Used:
+        Using Regex detect the macros
+        Replace them using replace() function
+    """
     m=re.findall('#define .+ .+',file_content) 
     """finding macros"""
     
@@ -142,6 +152,16 @@ def remove_macros(file_content):
     return content
 
 def remove_comments(file_content):
+    """
+    Arguments:
+        file_content: string storing the source code
+    Return type: updated string
+    Functionality:
+        All commments in the code are replaced.
+    Logic Used:
+        Using Regex detect substrings starting with // and ending with \n 
+        Similarly detect substrings starting with /* and ending with */
+    """
     pattern=re.compile('//.?$|/\.?\/',re.DOTALL|re.MULTILINE) 
     """ pattern for comments """
     content=re.sub(pattern,'',file_content)  
@@ -159,10 +179,9 @@ def preprocessing(list_of_files,usernames):
     Return type  :
         It returns "tf_idf()" function as Output
     Functionality:
+        It finds the count of each word after removing comments and replacing macros and passes this vector to tf_idf function.
     
-    Logic Used   :
-    
-     """
+    """
     word_count_across_documents={}
     """ Maintains the word count of each element in a document """
 
@@ -270,9 +289,9 @@ def txt_file(similarity_matrix,list_of_files,usernames):
     return csv_file(list_of_files,similarity_matrix)
 
 def csv_file(list_of_files,similarity_matrix):
-    """ Interpreting the Output data as a CSV file ,
-    where each element represent the percentage matching between the file 
-    corresponding to a row and column"""
+    #""" Interpreting the Output data as a CSV file ,
+    #where each element represent the percentage matching between the file 
+    #corresponding to a row and column"""
     """ 
     Arguments    :
         list_of_files    :list of source code files
@@ -294,7 +313,15 @@ def csv_file(list_of_files,similarity_matrix):
     return visualizer(list_of_files,similarity_matrix)
 def similarity(s,t):
     
-    """ This shows the fraction of matching among the files """
+    """ 
+    Arguments    :
+        s   :(sorted)list of numbers
+        t   :(sorted)list of numbers
+    Return type  :
+        returns a number in the range(0,1)
+    Functionality:
+        Evaluates the cosine product of the two vectors
+    """
     x=min(s.size,t.size)
     s=s[-x:]
     t=t[-x:]
