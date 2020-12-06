@@ -162,7 +162,7 @@ def remove_comments(file_content):
         Using Regex detect substrings starting with // and ending with \n 
         Similarly detect substrings starting with /* and ending with */
     """
-    pattern=re.compile('//.?$|/\.?\/',re.DOTALL|re.MULTILINE) 
+    pattern=re.compile('//.*?$|/\*.*?\*/',re.DOTALL|re.MULTILINE) 
     """ pattern for comments """
     content=re.sub(pattern,'',file_content)  
     """remove comments"""
