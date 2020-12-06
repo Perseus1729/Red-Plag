@@ -67,7 +67,7 @@ What has been implemented so far
 
     A basic framework for the website has been created.
 
-    Implementation of Logging in and Registering has been done.
+    The Website incorporates five features:Login,Logout,Register,Upload,Download
 
     Implemented uploading of files for a user who has logged in.
 
