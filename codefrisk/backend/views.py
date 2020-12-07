@@ -68,9 +68,11 @@ class DataUpload(viewsets.ModelViewSet):
             t=tarfile.open('media/'+str(i.data.name),'r')
             L=t.getnames()
             for k in L:
-                l.append(k)
                 try:
+                    if(k.find('._')!=-1):
+                        continue
                     users.append(k.split('/')[1])
+                    l.append(k)
                 except:
                     pass
         preprocessing(l,users)
