@@ -75,15 +75,15 @@ def visualizer(list_of_files,similarity_matrix):
     y=range(len(list_of_files))
     xx,yy=np.meshgrid(x,y)
     z=similarity_matrix[xx,yy]
-    cmap =cm.get_cmap("rainbow",100)
+    z=np.round(z*100)
+    cmap = matplotlib.colors.LinearSegmentedColormap.from_list("", ["green","yellow","red"])
     fig=plt.figure()
     ax=fig.add_subplot(111)
-    im=ax.matshow(z,cmap=cmap,vmin=0,vmax=1.01,origin='lower')
+    im=ax.matshow(z,cmap=cmap,vmin=0,vmax=100,origin='lower')
     for i in range(len(list_of_files)):
-        ax.text(i,i,"none",ha="center", va="center", color="k")
         for j in range(i+1,len(list_of_files)):
-            ax.text(j, i, int(similarity_matrix[i,j]*100)/100,ha="center", va="center", color="k")
-            ax.text(i,j, int(similarity_matrix[i,j]*100)/100,ha="center", va="center", color="k")
+            ax.text(j, i, int(similarity_matrix[i,j]*100),ha="center", va="center", color="k")
+            ax.text(i,j, int(similarity_matrix[i,j]*100),ha="center", va="center", color="k")
     fig.colorbar(im,shrink=0.5)
     ax.set_xticks(range(len(list_of_files)))
     ax.set_yticks(range(len(list_of_files)))
@@ -220,16 +220,18 @@ def preprocessing(list_of_paths,list_of_files):
         for i in sym:
             content=content.replace(i," "+i+" ")
         
-        if(files[-4:]=='.cpp'):
+        if(files[-4:]=='.cpp' or files[-4:]=='.java'):
             content=content.replace("while","for")
             content=content.replace("switch","if")
             content=content.replace("case","else if")
             content=content.replace("default","else")
-            content=content.replace("do","")
-            content=content.replace(";","")
-            content=content.replace(",","")
-            content=content.replace("'","")
-            content=content.replace('"',"")
+            content=content.replace("unsigned long long int","double")
+            content=content.replace("unsigned long long","double")
+            content=content.replace("long long int","double")
+            content=content.replace("long long","double")
+            content=content.replace("float","double")
+            content=content.replace("int","double")
+            content=content.replace("for","double")
             
         elif(files[-3:]=='.py'):
             content=content.replace('while','for')
@@ -238,6 +240,7 @@ def preprocessing(list_of_paths,list_of_files):
             content=content.replace('default','else')
             content=content.replace('do','')
             content=re.sub(':|\'|\"','',content)
+            
         while(content.find('/*')!=-1):
             i=content.find('/*')
             j=content.find('*/')
@@ -278,7 +281,7 @@ def tf_idf(word_count_in_each_file,word_count_across_documents,list_of_paths,lis
         tf_idf_vec.append(temp)
 
     for i in range(len(list_of_paths)):
-        similarity_matrix[i,i]=1;
+        similarity_matrix[i,i]=0
         for j in range(i+1,len(list_of_paths)):
             similarity_matrix[i,j]=similarity(np.array(tf_idf_vec[i]),np.array(tf_idf_vec[j]))
             similarity_matrix[j,i]=similarity_matrix[i,j]
