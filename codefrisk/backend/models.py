@@ -95,6 +95,7 @@ def visualizer(list_of_files,similarity_matrix):
     plt.savefig('media/'+path)
 
 def remove_macros(file_content):
+    
 
     """
     Arguments:
@@ -106,65 +107,32 @@ def remove_macros(file_content):
         Using Regex detect the macros
         Replace them using replace() function
     """
-    m=re.findall('#define .+ .+',file_content) 
+    temp = open("temp.cpp", "w")
+    temp.write(content)
+    temp.close()
+    pre = subprocess.getstatusoutput("g++ -E temp.cpp")
+    prep=pre[1].split('using namespace std;')[-1]
+    content=prep
+    
+    m=re.findall('typedef .+ .+',file_content) 
     """finding macros"""
     
-    content=re.sub('#define .+ .+','',file_content)  
+    content=re.sub('typedef .+ .+','',file_content)  
     """removing macros definitions"""
 
     for i in range(len(m)):     
         """replacing macros"""
-        j=0
-        n=0
-        for k in range(8,len(m[i])):
-            if(m[i][k]=='('):
-                j=k-8
-                break
-            elif(m[i][k]==' '):
-                j=-1
-                n=k+1
-                break
-            
-        if(j!=-1):
-            for k in range(j+9,len(m[i])):
-                if(m[i][k]==')'):
-                    n=k+2
-                    break
-            
-        if(j==-1 or m[i][j+9]==')'):
-            content=content.replace(m[i][8:n-1],m[i][n:])
-            continue
+        j=m[i].split()
+        if(j[-1]==';'):
+            last_word=j[-2]
         else:
-            y_param=m[i][j+9:n-2].split(',')
-               
-            pattern=m[i][8:j+8]+'\(.*?\)'
-            m2=re.findall(pattern,content)
-                
-            for z in m2:
-                param=z[j+1:-1].split(',')
-                st=m[i][n:]
-                    
-
-                for k in range(len(param)):
-                    st=re.sub(y_param[k].strip(),param[k],st)
-                content=content.replace(z,st)
-    return content
-
-def remove_comments(file_content):
-    """
-    Arguments:
-        file_content: string storing the source code
-    Return type: updated string
-    Functionality:
-        All commments in the code are replaced.
-    Logic Used:
-        Using Regex detect substrings starting with // and ending with \n 
-        Similarly detect substrings starting with /* and ending with */
-    """
-    pattern=re.compile('//.*?$|/\*.*?\*/',re.DOTALL|re.MULTILINE) 
-    """ pattern for comments """
-    content=re.sub(pattern,'',file_content)  
-    """remove comments"""
+            last_word=j[-1]
+            if(last_word[-1]==';'):
+                last_word=last_word[:-1]
+            string=""
+            for i in range(1,len(j)-1):
+                string+=j[i]+' '
+            content=content.replace(last_word,string)
     return content
 
 def remove_comments_pythonfile(file_content):
@@ -208,7 +176,6 @@ def preprocessing(list_of_paths,list_of_files):
         myfile.close()
         
         if(files[-4:]=='.cpp'):
-            content=remove_comments(content)
             content=remove_redundant_functions(content)
             content=remove_macros(content)
             
@@ -232,6 +199,31 @@ def preprocessing(list_of_paths,list_of_files):
             content=content.replace("float","double")
             content=content.replace("int","double")
             content=content.replace("for","double")
+            content=content.replace(";","")
+            content=content.replace(",","")
+            content=content.replace("'","")
+            content=content.replace('"',"")
+            content=content.replace("}","")
+            content=content.replace("{","")
+            content=content.replace("]","")
+            content=content.replace('[',"")
+            content=content.replace(")","")
+            content=content.replace("(","")
+            
+            content=content.replace("+ +","+ = 1")
+            content=content.replace("- -","- = 1")
+            content=content.replace("< <","<<")
+            content=content.replace('> >',">>")
+            cont=""
+            for i in content.split('\n'):
+                if(i=='\n'):
+                    continue
+                i=i.strip()
+                if(len(i)==0 or i[0]=='#'):
+                    continue
+                else:
+                    cont=cont+' '+i
+            content=cont
             
         elif(files[-3:]=='.py'):
             content=content.replace('while','for')
@@ -240,11 +232,6 @@ def preprocessing(list_of_paths,list_of_files):
             content=content.replace('default','else')
             content=content.replace('do','')
             content=re.sub(':|\'|\"','',content)
-            
-        while(content.find('/*')!=-1):
-            i=content.find('/*')
-            j=content.find('*/')
-            content=content[0:i]+content[j+2:]
         List_of_words=content.split()
 
         for i in List_of_words:
