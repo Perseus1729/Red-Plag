@@ -66,6 +66,7 @@ Doxygen-GUI   :http://www.doxygen.org/download.html
 
  Run 
  ``` diff 
+ npm update   (To install node_modules)
  ng serve --open
  ```
  If you get a jquery error runn the followong commands on terminal.
