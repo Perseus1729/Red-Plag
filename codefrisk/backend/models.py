@@ -9,6 +9,7 @@ import sys
 from matplotlib import cm
 import matplotlib.colors as colors
 import math
+import matplotlib
 import csv
 plt.switch_backend('Agg')
 class add_data(models.Model):
