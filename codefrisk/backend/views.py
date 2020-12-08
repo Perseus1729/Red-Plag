@@ -7,16 +7,15 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt,ensure_csrf_cookie
 from rest_framework.parsers import MultiPartParser, FormParser
-import tarfile
 
+import tarfile
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('username')
     serializer_class = UserSerializer
     authentication_classes=(TokenAuthentication,)
     permission_classes = [IsAuthenticated]
-
 @csrf_exempt
 def create_user(request):
     validated_data=JSONParser().parse(request)
@@ -51,9 +50,12 @@ class DataUpload(viewsets.ModelViewSet):
         username=request.POST['username']
         your_file = request.FILES['data']
         add_data.objects.create( username=username,label=label,data=your_file)
-        t=tarfile.open('media/'+str(your_file),'r')
-        L=t.getnames()
-        t.extractall(path='media/')
+        if(your_file.name.find('.tar')!=-1):
+            t=tarfile.open('media/'+str(your_file),'r')
+            L=t.getnames()
+            t.extractall(path='media/')
+        else:
+            pass
         return JsonResponse("success",safe=False)
  
     @csrf_exempt
@@ -63,18 +65,22 @@ class DataUpload(viewsets.ModelViewSet):
         if(not your_files.exists()):
             return JsonResponse("You dont have any files",safe=False)
         l=[]
-        users=[]
+        h=[]
         for i in your_files:
-            t=tarfile.open('media/'+str(i.data.name),'r')
-            L=t.getnames()
-            for k in L:
-                try:
-                    if(k.find('._')!=-1):
-                        continue
-                    users.append(k.split('/')[1])
-                    l.append(k)
-                except:
-                    pass
-        preprocessing(l,users)
+            if(i.data.name.find('.tar')!=-1):
+                t=tarfile.open('media/'+str(i.data.name),'r')
+                L=t.getnames()
+                for k in L:
+                    try:
+                        if(k.find('._')!=-1 or k.find('.DS_Store')!=-1):
+                            continue
+                        h.append(k.split('/')[1])
+                        l.append(k)
+                    except:
+                        pass
+            else:
+                l.append(i.data.name)
+                h.append(i.data.name)
+        preprocessing(l,h)
         data={'png':'result.png','txt':'result.txt','csv':'result.csv'}
         return JsonResponse(data, safe=False)
