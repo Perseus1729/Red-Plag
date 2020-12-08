@@ -80,12 +80,16 @@ Doxygen-GUI   :http://www.doxygen.org/download.html
 # What has been implemented so far
 
     A basic framework for the website has been created.
+    
+    Implemented highly rigorous Authentication System using Token Authentication.
 
     The Website incorporates five features:Login,Logout,Register,Upload,Download
 
     Implemented uploading of files for a user who has logged in.
 
     Basic implementation for downloading a file has been done.
+    
+    Preprocessed the files like replacing macros(only for c++),removing comments(for c++,java and python),replaced alternatives like while with for,switch with if etc.
 
     Core logic-wise a bag-of-words strategy along with tf-idf strategy after preprocesssing.
 
@@ -99,4 +103,12 @@ For each document, a sorted vector of the word occurrences in the file are creat
 
 ###    Tf-idf:
 This is slightly more polished than the Bag of Words strategy.We add a weight to each word based on how relavent the word is to the document.https://monkeylearn.com/blog/what-is-tf-idf/#:~:text=TF%2DIDF%20is%20a%20statistical,across%20a%20set%20of%20documents
+
+### Similarity:
+We did cosine similarity after normalizing the data and padding with 0's
+
+### Visualization:
+On Clicking view results,you get 3 files .csv,.txt,.png
+
+This project would be a good learning project.We have developed skills in web development,Python,Machine Learning etc.
 
