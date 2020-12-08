@@ -37,7 +37,7 @@ def remove_redundant_functions(content):
          Continue with the next function. 
          Reference:https://stackoverflow.com/questions/33209302/removal-of-unused-or-redundant-code
     """
-    type_list=['int','void','char','string']
+    type_list=['int','void','char','string','double']
     t=""
     for type in type_list:
         L=re.findall(type+"\s*[a-z0-9_]\s\([a-z0-9_ \n\t,\r\f\v]\)\s\{",content)
@@ -118,7 +118,11 @@ def remove_macros(content):
     Functionality:
         All macros in the code are replaced.
     Logic Used:
-        Using Regex detect the macros
+        This is based on preprocessing done by g++ compiler
+        This function assumes the existence of "using namespace std;" as a substring in the source code string
+        g++ -E file.cpp produces the preprocessed code which does not contain any comments or macro
+        The substring following "using namespace std;" is extracted
+        Using Regex to detect the typedef macros
         Replace them using replace() function
     """
     temp = open("temp.cpp", "w")
