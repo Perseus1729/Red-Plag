@@ -4,8 +4,8 @@
 <h4>Member Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Contribution to the Project</h4>
 <pre>
 Pokala Mohith 	                 Backend and Frontend contributions, contributions for core logic implementation<br />
-Poluparthi Preetham 	         CoreLogic Contribution,Documentation<br />
-Punna Hitesh Kumar 	          Front end implementation, Styling the website,Documentation <br />
+Poluparthi Preetham 	           CoreLogic Contribution,Documentation<br />
+Punna Hitesh Kumar 	            Front end implementation, Styling the website,Documentation <br />
 M.Thivesh Chandra      	        Frontend implementations,Visualizaion,Core Logic Implementation<br />
 </pre>
 
