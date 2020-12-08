@@ -86,10 +86,11 @@ def visualizer(list_of_files,similarity_matrix):
         Path of the saved image
     Functionality:
         Plotting the output similarity_matrix and saving it as an image """
+    
     cmap = matplotlib.colors.LinearSegmentedColormap.from_list("", ["green","yellow","red"])
     fig=plt.figure()
     ax=fig.add_subplot(111)
-    im=ax.matshow(similarity_matrix,cmap=cmap,vmin=0,vmax=1,origin='lower')
+    im=ax.matshow(np.round(similarity_matrix*100),cmap=cmap,vmin=0,vmax=100,origin='lower')
     for i in range(len(list_of_files)):
         for j in range(i+1,len(list_of_files)):
             ax.text(j, i, int(similarity_matrix[i,j]*100),ha="center", va="center", color="k",fontsize=100/(len(list_of_files)+1))
@@ -99,7 +100,7 @@ def visualizer(list_of_files,similarity_matrix):
     ax.set_yticks(range(len(list_of_files)))
     ax.set_xticklabels(list_of_files,rotation=90)
     ax.set_yticklabels(list_of_files)
-    random=np.random.randint(1,100)
+    
     path='result.png'
     plt.savefig('media/'+path)
 
@@ -338,4 +339,4 @@ def similarity(s,t):
     #s=(s-np.mean(s))/np.std(s)
     #t=(t-np.mean(t))/np.std(t)
     return 1-np.linalg.norm(s-t)/(np.linalg.norm(s)+np.linalg.norm(t))
-    #return np.dot(s,t)/(np.linalg.norm(s)*np.linalg.norm(t))
+    return np.dot(s,t)/(np.linalg.norm(s)*np.linalg.norm(t))
