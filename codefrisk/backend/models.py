@@ -97,8 +97,8 @@ def visualizer(list_of_files,similarity_matrix):
     im=ax.matshow(similarity_matrix,cmap=cmap,vmin=0,vmax=1,origin='lower')
     for i in range(len(list_of_files)):
         for j in range(i+1,len(list_of_files)):
-            ax.text(j, i, int(similarity_matrix[i,j]*100),ha="center", va="center", color="k",fontsize=50/(len(list_of_files)+1))
-            ax.text(i,j, int(similarity_matrix[i,j]*100),ha="center", va="center", color="k",fontsize=50/(len(list_of_files)+1))
+            ax.text(j, i, int(similarity_matrix[i,j]*100),ha="center", va="center", color="k",fontsize=100/(len(list_of_files)+1))
+            ax.text(i,j, int(similarity_matrix[i,j]*100),ha="center", va="center", color="k",fontsize=100/(len(list_of_files)+1))
     fig.colorbar(im,shrink=0.5)
     ax.set_xticks(range(len(list_of_files)))
     ax.set_yticks(range(len(list_of_files)))
