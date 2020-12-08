@@ -86,11 +86,6 @@ def visualizer(list_of_files,similarity_matrix):
         Path of the saved image
     Functionality:
         Plotting the output similarity_matrix and saving it as an image """
-    #x=range(len(list_of_files)) 
-    #y=range(len(list_of_files))
-    #xx,yy=np.meshgrid(x,y)
-    #z=similarity_matrix[xx,yy]
-    #z=np.round(z*100)
     cmap = matplotlib.colors.LinearSegmentedColormap.from_list("", ["green","yellow","red"])
     fig=plt.figure()
     ax=fig.add_subplot(111)
@@ -343,4 +338,4 @@ def similarity(s,t):
     #s=(s-np.mean(s))/np.std(s)
     #t=(t-np.mean(t))/np.std(t)
     return 1-np.linalg.norm(s-t)/(np.linalg.norm(s)+np.linalg.norm(t))
-    return np.dot(s,t)/(np.linalg.norm(s)*np.linalg.norm(t))
+    #return np.dot(s,t)/(np.linalg.norm(s)*np.linalg.norm(t))
