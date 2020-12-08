@@ -63,6 +63,20 @@ def remove_redundant_functions(content):
             content=t
     return content
 
+def remove_comments(string):
+    pattern = r"(\".*?\"|\'.*?\')|(/\*.*?\*/|//[^\r\n]*$)"
+    # first group captures quoted strings (double or single)
+    # second group captures comments (//single-line or /* multi-line */)
+    regex = re.compile(pattern, re.MULTILINE|re.DOTALL)
+    def _replacer(match):
+        # if the 2nd group (capturing comments) is not None,
+        # it means we have captured a non-quoted (real) comment string.
+        if match.group(2) is not None:
+            return "" # so we will return empty to remove the comment
+        else: # otherwise, we will return the 1st group
+            return match.group(1) # captured quoted-string
+    return regex.sub(_replacer, string)
+
 def visualizer(list_of_files,similarity_matrix):
     """ 
     Arguments    :
@@ -90,17 +104,16 @@ def visualizer(list_of_files,similarity_matrix):
     ax.set_yticks(range(len(list_of_files)))
     ax.set_xticklabels(list_of_files,rotation=90)
     ax.set_yticklabels(list_of_files)
-    ax.tick_params(labelsize=30/len(list_of_files))
     random=np.random.randint(1,100)
     path='result.png'
     plt.savefig('media/'+path)
 
-def remove_macros(file_content):
+def remove_macros(content):
     
 
     """
     Arguments:
-        file_content: string storing the source code
+        content: string storing the source code
     Return type: updated string
     Functionality:
         All macros in the code are replaced.
@@ -115,10 +128,10 @@ def remove_macros(file_content):
     prep=pre[1].split('using namespace std;')[-1]
     content=prep
     
-    m=re.findall('typedef .+ .+',file_content) 
+    m=re.findall('typedef .+ .+',content) 
     """finding macros"""
     
-    content=re.sub('typedef .+ .+','',file_content)  
+    content=re.sub('typedef .+ .+','',content)  
     """removing macros definitions"""
 
     for i in range(len(m)):     
@@ -179,16 +192,16 @@ def preprocessing(list_of_paths,list_of_files):
         if(files[-4:]=='.cpp'):
             content=remove_redundant_functions(content)
             content=remove_macros(content)
-            
+            content=remove_comments(content)
+        if(files[-5:]=='.java'):
+            content=remove_comments(content)
         elif(files[-3:]=='.py'):
             content=remove_comments_pythonfile(content)
-      
-        
         sym=[",",";","{","}",")","(","[","]","+","-","*","/","%","|","&","^","!","=","<",">","?","'",'"','#','.']
         for i in sym:
             content=content.replace(i," "+i+" ")
         
-        if(files[-4:]=='.cpp' or files[-4:]=='.java'):
+        if(files[-4:]=='.cpp' or files[-5:]=='.java'):
             content=content.replace("while","for")
             content=content.replace("switch","if")
             content=content.replace("case","else if")
@@ -200,17 +213,6 @@ def preprocessing(list_of_paths,list_of_files):
             content=content.replace("float","double")
             content=content.replace("int","double")
             content=content.replace("for","double")
-            content=content.replace(";","")
-            content=content.replace(",","")
-            content=content.replace("'","")
-            content=content.replace('"',"")
-            content=content.replace("}","")
-            content=content.replace("{","")
-            content=content.replace("]","")
-            content=content.replace('[',"")
-            content=content.replace(")","")
-            content=content.replace("(","")
-            
             content=content.replace("+ +","+ = 1")
             content=content.replace("- -","- = 1")
             content=content.replace("< <","<<")
@@ -240,7 +242,7 @@ def preprocessing(list_of_paths,list_of_files):
             word_count_across_documents[i]=word_count_across_documents.get(i,0)+1
         
         word_count_in_each_file.append(temp)
-
+    print(word_count_in_each_file)
     tf_idf(word_count_in_each_file,word_count_across_documents,list_of_paths,list_of_files)
 
 def tf_idf(word_count_in_each_file,word_count_across_documents,list_of_paths,list_of_files):
@@ -264,7 +266,7 @@ def tf_idf(word_count_in_each_file,word_count_across_documents,list_of_paths,lis
     for i in range(len(list_of_paths)):
         temp=[]
         for j in word_count_in_each_file[i]:
-            temp.append(word_count_in_each_file[i].get(j)*(-0.01+(math.log(word_count_across_documents.get(j)/word_count_in_each_file[i].get(j)/len(list_of_paths)))))
+            temp.append(word_count_in_each_file[i].get(j)*((math.log(word_count_across_documents.get(j)/word_count_in_each_file[i].get(j)/len(list_of_files)))))
         temp.sort()
         tf_idf_vec.append(temp)
 
@@ -288,7 +290,7 @@ def txt_file(similarity_matrix,list_of_paths,list_of_files):
     res=""
     for i in range(len(list_of_paths)):
         for j in range(i+1,len(list_of_paths)):
-            res+="similarity between "+ list_of_files[i]+list_of_files[j]+" = "+str(similarity_matrix[i][j])+"\n"
+            res+="similarity between "+ list_of_files[i]+" and "+list_of_files[j]+" = "+str(similarity_matrix[i][j])+"\n"
     result.write(res)
     csv_file(list_of_files,similarity_matrix)
 
@@ -305,7 +307,7 @@ def csv_file(list_of_files,similarity_matrix):
            
     """
     f=similarity_matrix.tolist()
-    files=['']+list_of_files
+    files=['filenames']+list_of_files
     for x in range(len(list_of_files)):
         f[x]=[list_of_files[x]]+f[x]
     f=[files]+f
@@ -324,7 +326,17 @@ def similarity(s,t):
     Functionality:
         Evaluates the cosine product of the two vectors
     """
+    x=np.zeros(abs(s.size-t.size))
+
+    if(s.size>t.size):
+        t=np.concatenate((x,t))
+    else:
+        s=np.concatenate((x,s))
+    '''
     x=min(s.size,t.size)
     s=s[-x:]
     t=t[-x:]
+    '''
+    s=(s-np.mean(s))/np.std(s)
+    t=(t-np.mean(t))/np.std(t)
     return np.dot(s,t)/(np.linalg.norm(s)*np.linalg.norm(t))
