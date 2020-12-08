@@ -242,7 +242,6 @@ def preprocessing(list_of_paths,list_of_files):
             word_count_across_documents[i]=word_count_across_documents.get(i,0)+1
         
         word_count_in_each_file.append(temp)
-    print(word_count_in_each_file)
     tf_idf(word_count_in_each_file,word_count_across_documents,list_of_paths,list_of_files)
 
 def tf_idf(word_count_in_each_file,word_count_across_documents,list_of_paths,list_of_files):
