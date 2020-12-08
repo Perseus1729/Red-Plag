@@ -7,7 +7,7 @@
   \indexspace
 
   \item {create\_user}
-    \subitem {views}, \hyperpage{13}
+    \subitem {views}, \hyperpage{12}
   \item {csv\_file}
     \subitem {models}, \hyperpage{5}
 
@@ -30,10 +30,10 @@
     \subitem {remove\_comments\_pythonfile}, \hyperpage{7}
     \subitem {remove\_macros}, \hyperpage{8}
     \subitem {remove\_redundant\_functions}, \hyperpage{9}
-    \subitem {similarity}, \hyperpage{10}
+    \subitem {similarity}, \hyperpage{9}
     \subitem {tf\_idf}, \hyperpage{10}
     \subitem {txt\_file}, \hyperpage{11}
-    \subitem {visualizer}, \hyperpage{12}
+    \subitem {visualizer}, \hyperpage{11}
   \item {models.add\_data}, \hyperpage{15}
     \subitem {data}, \hyperpage{15}
     \subitem {label}, \hyperpage{15}
@@ -44,7 +44,7 @@
   \item {parser\_classes}
     \subitem {views.DataUpload}, \hyperpage{17}
   \item {permission\_classes}
-    \subitem {views.DataUpload}, \hyperpage{17}
+    \subitem {views.DataUpload}, \hyperpage{18}
     \subitem {views.UserViewSet}, \hyperpage{18}
   \item {post}
     \subitem {views.DataUpload}, \hyperpage{16}
@@ -54,7 +54,7 @@
   \indexspace
 
   \item {queryset}
-    \subitem {views.UserViewSet}, \hyperpage{18}
+    \subitem {views.UserViewSet}, \hyperpage{19}
 
   \indexspace
 
@@ -73,7 +73,7 @@
     \subitem {views.DataUpload}, \hyperpage{18}
     \subitem {views.UserViewSet}, \hyperpage{19}
   \item {similarity}
-    \subitem {models}, \hyperpage{10}
+    \subitem {models}, \hyperpage{9}
 
   \indexspace
 
@@ -92,20 +92,20 @@
   \item {view\_files}
     \subitem {views.DataUpload}, \hyperpage{17}
   \item {views}, \hyperpage{12}
-    \subitem {create\_user}, \hyperpage{13}
+    \subitem {create\_user}, \hyperpage{12}
   \item {views.DataUpload}, \hyperpage{16}
     \subitem {authentication\_classes}, \hyperpage{17}
     \subitem {parser\_classes}, \hyperpage{17}
-    \subitem {permission\_classes}, \hyperpage{17}
+    \subitem {permission\_classes}, \hyperpage{18}
     \subitem {post}, \hyperpage{16}
     \subitem {serializer\_class}, \hyperpage{18}
     \subitem {view\_files}, \hyperpage{17}
   \item {views.UserViewSet}, \hyperpage{18}
     \subitem {authentication\_classes}, \hyperpage{18}
     \subitem {permission\_classes}, \hyperpage{18}
-    \subitem {queryset}, \hyperpage{18}
+    \subitem {queryset}, \hyperpage{19}
     \subitem {serializer\_class}, \hyperpage{19}
   \item {visualizer}
-    \subitem {models}, \hyperpage{12}
+    \subitem {models}, \hyperpage{11}
 
 \end{theindex}

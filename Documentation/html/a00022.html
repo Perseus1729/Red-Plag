@@ -156,16 +156,19 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">def </span>post(request, *args, **kwargs):</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        label=request.POST[<span class="stringliteral">&#39;label&#39;</span>]</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        username=request.POST[<span class="stringliteral">&#39;username&#39;</span>]</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        your_file = request.FILES[<span class="stringliteral">&#39;data&#39;</span>]</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        add_data.objects.create( username=username,label=label,data=your_file)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        t=tarfile.open(<span class="stringliteral">&#39;media/&#39;</span>+str(your_file),<span class="stringliteral">&#39;r&#39;</span>)</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        L=t.getnames()</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        t.extractall(path=<span class="stringliteral">&#39;media/&#39;</span>)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> JsonResponse(<span class="stringliteral">&quot;success&quot;</span>,safe=<span class="keyword">False</span>)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">def </span>post(request, *args, **kwargs):</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        label=request.POST[<span class="stringliteral">&#39;label&#39;</span>]</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        username=request.POST[<span class="stringliteral">&#39;username&#39;</span>]</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        your_file = request.FILES[<span class="stringliteral">&#39;data&#39;</span>]</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        add_data.objects.create( username=username,label=label,data=your_file)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        if(your_file.name.find(<span class="stringliteral">&#39;.tar&#39;</span>)!=-1):</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            t=tarfile.open(<span class="stringliteral">&#39;media/&#39;</span>+str(your_file),<span class="stringliteral">&#39;r&#39;</span>)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            L=t.getnames()</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            t.extractall(path=<span class="stringliteral">&#39;media/&#39;</span>)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">return</span> JsonResponse(<span class="stringliteral">&quot;success&quot;</span>,safe=<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -184,25 +187,31 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">def </span>view_files(request):</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        data = request.POST</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        your_files=add_data.objects.filter(label=data[<span class="stringliteral">&#39;label&#39;</span>])</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        if(<span class="keywordflow">not</span> your_files.exists()):</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">return</span> JsonResponse(<span class="stringliteral">&quot;You dont have any files&quot;</span>,safe=<span class="keyword">False</span>)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        l=[]</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        users=[]</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> your_files:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            t=tarfile.open(<span class="stringliteral">&#39;media/&#39;</span>+str(i.data.name),<span class="stringliteral">&#39;r&#39;</span>)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            L=t.getnames()</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordflow">for</span> k <span class="keywordflow">in</span> L:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                l.append(k)</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                <span class="keywordflow">try</span>:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    users.append(k.split(<span class="stringliteral">&#39;/&#39;</span>)[1])</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                <span class="keywordflow">except</span>:</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                    <span class="keywordflow">pass</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        preprocessing(l,users)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        data={<span class="stringliteral">&#39;png&#39;</span>:<span class="stringliteral">&#39;result.png&#39;</span>,<span class="stringliteral">&#39;txt&#39;</span>:<span class="stringliteral">&#39;result.txt&#39;</span>,<span class="stringliteral">&#39;csv&#39;</span>:<span class="stringliteral">&#39;result.csv&#39;</span>}</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">return</span> JsonResponse(data, safe=<span class="keyword">False</span>)</div>
+<div class="fragment"><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">def </span>view_files(request):</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        data = request.POST</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        your_files=add_data.objects.filter(label=data[<span class="stringliteral">&#39;label&#39;</span>])</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        if(<span class="keywordflow">not</span> your_files.exists()):</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="keywordflow">return</span> JsonResponse(<span class="stringliteral">&quot;You dont have any files&quot;</span>,safe=<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        l=[]</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        h=[]</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> your_files:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            if(i.data.name.find(<span class="stringliteral">&#39;.tar&#39;</span>)!=-1):</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                t=tarfile.open(<span class="stringliteral">&#39;media/&#39;</span>+str(i.data.name),<span class="stringliteral">&#39;r&#39;</span>)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                L=t.getnames()</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <span class="keywordflow">for</span> k <span class="keywordflow">in</span> L:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                        if(k.find(<span class="stringliteral">&#39;._&#39;</span>)!=-1 <span class="keywordflow">or</span> k.find(<span class="stringliteral">&#39;.DS_Store&#39;</span>)!=-1):</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                            <span class="keywordflow">continue</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                        h.append(k.split(<span class="stringliteral">&#39;/&#39;</span>)[1])</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                        l.append(k)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                        <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                l.append(i.data.name)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                h.append(i.data.name)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        preprocessing(l,h)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        data={<span class="stringliteral">&#39;png&#39;</span>:<span class="stringliteral">&#39;result.png&#39;</span>,<span class="stringliteral">&#39;txt&#39;</span>:<span class="stringliteral">&#39;result.txt&#39;</span>,<span class="stringliteral">&#39;csv&#39;</span>:<span class="stringliteral">&#39;result.csv&#39;</span>}</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">return</span> JsonResponse(data, safe=<span class="keyword">False</span>)</div>
 </div><!-- fragment -->
 </div>
 </div>

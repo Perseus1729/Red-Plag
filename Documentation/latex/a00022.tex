@@ -35,16 +35,19 @@ tuple \mbox{\hyperlink{a00022_ab3d80ff8d2437446fca818e71eaa5229}{parser\+\_\+cla
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{49     \textcolor{keyword}{def }post(request, *args, **kwargs):}
-\DoxyCodeLine{50         label=request.POST[\textcolor{stringliteral}{'label'}]}
-\DoxyCodeLine{51         username=request.POST[\textcolor{stringliteral}{'username'}]}
-\DoxyCodeLine{52         your\_file = request.FILES[\textcolor{stringliteral}{'data'}]}
-\DoxyCodeLine{53         add\_data.objects.create( username=username,label=label,data=your\_file)}
-\DoxyCodeLine{54         t=tarfile.open(\textcolor{stringliteral}{'media/'}+str(your\_file),\textcolor{stringliteral}{'r'})}
-\DoxyCodeLine{55         L=t.getnames()}
-\DoxyCodeLine{56         t.extractall(path=\textcolor{stringliteral}{'media/'})}
-\DoxyCodeLine{57         \textcolor{keywordflow}{return} JsonResponse(\textcolor{stringliteral}{"{}success"{}},safe=\textcolor{keyword}{False})}
-\DoxyCodeLine{58  }
+\DoxyCodeLine{48     \textcolor{keyword}{def }post(request, *args, **kwargs):}
+\DoxyCodeLine{49         label=request.POST[\textcolor{stringliteral}{'label'}]}
+\DoxyCodeLine{50         username=request.POST[\textcolor{stringliteral}{'username'}]}
+\DoxyCodeLine{51         your\_file = request.FILES[\textcolor{stringliteral}{'data'}]}
+\DoxyCodeLine{52         add\_data.objects.create( username=username,label=label,data=your\_file)}
+\DoxyCodeLine{53         if(your\_file.name.find(\textcolor{stringliteral}{'.tar'})!=-\/1):}
+\DoxyCodeLine{54             t=tarfile.open(\textcolor{stringliteral}{'media/'}+str(your\_file),\textcolor{stringliteral}{'r'})}
+\DoxyCodeLine{55             L=t.getnames()}
+\DoxyCodeLine{56             t.extractall(path=\textcolor{stringliteral}{'media/'})}
+\DoxyCodeLine{57         \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{58             \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{59         \textcolor{keywordflow}{return} JsonResponse(\textcolor{stringliteral}{"{}success"{}},safe=\textcolor{keyword}{False})}
+\DoxyCodeLine{60  }
 
 \end{DoxyCode}
 \mbox{\Hypertarget{a00022_a3c3c8d5618318ddd25c90bb2ed54ba28}\label{a00022_a3c3c8d5618318ddd25c90bb2ed54ba28}} 
@@ -55,25 +58,31 @@ tuple \mbox{\hyperlink{a00022_ab3d80ff8d2437446fca818e71eaa5229}{parser\+\_\+cla
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{60     \textcolor{keyword}{def }view\_files(request):}
-\DoxyCodeLine{61         data = request.POST}
-\DoxyCodeLine{62         your\_files=add\_data.objects.filter(label=data[\textcolor{stringliteral}{'label'}])}
-\DoxyCodeLine{63         if(\textcolor{keywordflow}{not} your\_files.exists()):}
-\DoxyCodeLine{64             \textcolor{keywordflow}{return} JsonResponse(\textcolor{stringliteral}{"{}You dont have any files"{}},safe=\textcolor{keyword}{False})}
-\DoxyCodeLine{65         l=[]}
-\DoxyCodeLine{66         users=[]}
-\DoxyCodeLine{67         \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} your\_files:}
-\DoxyCodeLine{68             t=tarfile.open(\textcolor{stringliteral}{'media/'}+str(i.data.name),\textcolor{stringliteral}{'r'})}
-\DoxyCodeLine{69             L=t.getnames()}
-\DoxyCodeLine{70             \textcolor{keywordflow}{for} k \textcolor{keywordflow}{in} L:}
-\DoxyCodeLine{71                 l.append(k)}
-\DoxyCodeLine{72                 \textcolor{keywordflow}{try}:}
-\DoxyCodeLine{73                     users.append(k.split(\textcolor{stringliteral}{'/'})[1])}
-\DoxyCodeLine{74                 \textcolor{keywordflow}{except}:}
-\DoxyCodeLine{75                     \textcolor{keywordflow}{pass}}
-\DoxyCodeLine{76         preprocessing(l,users)}
-\DoxyCodeLine{77         data=\{\textcolor{stringliteral}{'png'}:\textcolor{stringliteral}{'result.png'},\textcolor{stringliteral}{'txt'}:\textcolor{stringliteral}{'result.txt'},\textcolor{stringliteral}{'csv'}:\textcolor{stringliteral}{'result.csv'}\}}
-\DoxyCodeLine{78         \textcolor{keywordflow}{return} JsonResponse(data, safe=\textcolor{keyword}{False})}
+\DoxyCodeLine{62     \textcolor{keyword}{def }view\_files(request):}
+\DoxyCodeLine{63         data = request.POST}
+\DoxyCodeLine{64         your\_files=add\_data.objects.filter(label=data[\textcolor{stringliteral}{'label'}])}
+\DoxyCodeLine{65         if(\textcolor{keywordflow}{not} your\_files.exists()):}
+\DoxyCodeLine{66             \textcolor{keywordflow}{return} JsonResponse(\textcolor{stringliteral}{"{}You dont have any files"{}},safe=\textcolor{keyword}{False})}
+\DoxyCodeLine{67         l=[]}
+\DoxyCodeLine{68         h=[]}
+\DoxyCodeLine{69         \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} your\_files:}
+\DoxyCodeLine{70             if(i.data.name.find(\textcolor{stringliteral}{'.tar'})!=-\/1):}
+\DoxyCodeLine{71                 t=tarfile.open(\textcolor{stringliteral}{'media/'}+str(i.data.name),\textcolor{stringliteral}{'r'})}
+\DoxyCodeLine{72                 L=t.getnames()}
+\DoxyCodeLine{73                 \textcolor{keywordflow}{for} k \textcolor{keywordflow}{in} L:}
+\DoxyCodeLine{74                     \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{75                         if(k.find(\textcolor{stringliteral}{'.\_'})!=-\/1 \textcolor{keywordflow}{or} k.find(\textcolor{stringliteral}{'.DS\_Store'})!=-\/1):}
+\DoxyCodeLine{76                             \textcolor{keywordflow}{continue}}
+\DoxyCodeLine{77                         h.append(k.split(\textcolor{stringliteral}{'/'})[1])}
+\DoxyCodeLine{78                         l.append(k)}
+\DoxyCodeLine{79                     \textcolor{keywordflow}{except}:}
+\DoxyCodeLine{80                         \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{81             \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{82                 l.append(i.data.name)}
+\DoxyCodeLine{83                 h.append(i.data.name)}
+\DoxyCodeLine{84         preprocessing(l,h)}
+\DoxyCodeLine{85         data=\{\textcolor{stringliteral}{'png'}:\textcolor{stringliteral}{'result.png'},\textcolor{stringliteral}{'txt'}:\textcolor{stringliteral}{'result.txt'},\textcolor{stringliteral}{'csv'}:\textcolor{stringliteral}{'result.csv'}\}}
+\DoxyCodeLine{86         \textcolor{keywordflow}{return} JsonResponse(data, safe=\textcolor{keyword}{False})}
 
 \end{DoxyCode}
 
