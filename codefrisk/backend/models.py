@@ -326,7 +326,7 @@ def similarity(s,t):
         Evaluates the cosine product of the two vectors
     """
     x=np.zeros(abs(s.size-t.size))
-
+    '''
     if(s.size>t.size):
         t=np.concatenate((x,t))
     else:
@@ -335,7 +335,8 @@ def similarity(s,t):
     x=min(s.size,t.size)
     s=s[-x:]
     t=t[-x:]
-    '''
-    s=(s-np.mean(s))/np.std(s)
-    t=(t-np.mean(t))/np.std(t)
+    
+    #s=(s-np.mean(s))/np.std(s)
+    #t=(t-np.mean(t))/np.std(t)
+    return 1-np.linalg.norm(s-t)/(np.linalg.norm(s)+np.linalg.norm(t))
     return np.dot(s,t)/(np.linalg.norm(s)*np.linalg.norm(t))
