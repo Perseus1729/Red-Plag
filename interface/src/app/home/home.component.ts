@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     
     try{
       this.username=sessionStorage.getItem('username');
-      console.log(sessionStorage.getItem('token'));
+      //console.log(sessionStorage.getItem('token'));
     }
     catch(err){
       location.replace("http://localhost:4200/login");
@@ -113,8 +113,8 @@ export class HomeComponent implements OnInit {
                   );
               }           
       }),
-      error => console.log('Error downloading the file'),
-      () => console.info('File downloaded successfully');
+      error => console.log('Error downloading the file');
+      //() => console.info('File downloaded successfully');
   }
 
 

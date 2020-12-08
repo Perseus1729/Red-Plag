@@ -35,7 +35,7 @@ export class UserService {
     this.token='';
   }
   loginuser(data):Observable<any>{
-    console.log(data);
+    //console.log(data);
     return this.http.post<any>(this.authurl,data,this.httpOptions);
   }
   add_files(x):Observable<any>{
