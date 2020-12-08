@@ -74,8 +74,15 @@ Doxygen-GUI   :http://www.doxygen.org/download.html
        npm install jquery
        
        npm install bootstrap
- 
- 
+ # Steps for API
+ API while registering a user(registeruser)-http://127.0.0.1:8000/backend/users/
+ API while checking for login credentials(loginuser)-http://127.0.0.1:8000/backend/auth/
+ API for adding files(add_files)-http://127.0.0.1:8000/backend/add_file/
+ API for results(view_files)-http://127.0.0.1:8000/backend/view_file/
+ While login the post request on http://127.0.0.1:8000/backend/auth/ returns a token corresponding to the user,
+ we store it in session storage of angular when we are logging in and we delete it while we are logging out,
+ the home component request i.e upload and download are passed withtoken in headers, only if it is a valid token
+ the operations are performed. The tokens are unguessable long strings this makes our website secure.
 
 # What has been implemented so far
 
