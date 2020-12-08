@@ -74,15 +74,6 @@ Doxygen-GUI   :http://www.doxygen.org/download.html
        npm install jquery
        
        npm install bootstrap
- # Steps for API
- API while registering a user(registeruser)-http://127.0.0.1:8000/backend/users/
- API while checking for login credentials(loginuser)-http://127.0.0.1:8000/backend/auth/
- API for adding files(add_files)-http://127.0.0.1:8000/backend/add_file/
- API for results(view_files)-http://127.0.0.1:8000/backend/view_file/
- While login the post request on http://127.0.0.1:8000/backend/auth/ returns a token corresponding to the user,
- we store it in session storage of angular when we are logging in and we delete it while we are logging out,
- the home component request i.e upload and download are passed withtoken in headers, only if it is a valid token
- the operations are performed. The tokens are unguessable long strings this makes our website secure.
 
 # What has been implemented so far
 
@@ -99,7 +90,17 @@ Doxygen-GUI   :http://www.doxygen.org/download.html
     Preprocessed the files like replacing macros(only for c++),removing comments(for c++,java and python),replaced alternatives like while with for,switch with if etc.
 
     Core logic-wise a bag-of-words strategy along with tf-idf strategy after preprocesssing.
-
+ # Comment about API
+ <pre>
+ API while registering a user(registeruser)-http://127.0.0.1:8000/backend/users/
+ API while checking for login credentials(loginuser)-http://127.0.0.1:8000/backend/auth/
+ API for adding files(add_files)-http://127.0.0.1:8000/backend/add_file/
+ API for results(view_files)-http://127.0.0.1:8000/backend/view_file/
+ While login the post request on http://127.0.0.1:8000/backend/auth/ returns a token corresponding to the user,
+ we store it in session storage of angular when we are logging in and we delete it while we are logging out,
+ the home component request i.e upload and download are passed withtoken in headers, only if it is a valid token
+ the operations are performed. The tokens are unguessable long strings this makes our website secure.
+</pre>
 # The Theoretical Aspect
 
 The two strategies we have attempted to implement here are:
