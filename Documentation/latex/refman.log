@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.12.4)  8 DEC 2020 14:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.12.4)  8 DEC 2020 21:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -957,58 +957,64 @@ Overfull \hbox (15.15555pt too wide) in paragraph at lines 119--119
 ="[],[]"<"[],[]">"[],[]"?"[],[]"'"[],[]'"'[],[]'#'[],[]'.'[]]  
  []
 
-[6] [7] [8] [9]
-Overfull \hbox (34.3562pt too wide) in paragraph at lines 405--405
+[6] [7]
+Overfull \hbox (53.55621pt too wide) in paragraph at lines 239--239
+[]    \T1/pcr/m/n/8 This function assumes the existence of "using namespace std
+;" as a substring in the source code string[] 
+ []
+
+[8] [9]
+Overfull \hbox (34.3562pt too wide) in paragraph at lines 413--413
 []    \T1/pcr/m/n/8 word_count_in_each_file    :Frequency of word corresponding
  to each file as an array of dictionary[] 
  []
 
 
-Overfull \hbox (144.75627pt too wide) in paragraph at lines 406--406
+Overfull \hbox (144.75627pt too wide) in paragraph at lines 414--414
 []    \T1/pcr/m/n/8 word_count_across_documents:Frequency of each word across a
 s files corresponding to a particular assignment as dictionary[] 
  []
 
 
-Overfull \hbox (163.95628pt too wide) in paragraph at lines 410--410
+Overfull \hbox (163.95628pt too wide) in paragraph at lines 418--418
 []    \T1/pcr/m/n/8 If we use the bag of words strategy then similarity is dete
 rmined mostly by the variables which have maximum count in a file.[] 
  []
 
 
-Overfull \hbox (264.75635pt too wide) in paragraph at lines 412--412
+Overfull \hbox (264.75635pt too wide) in paragraph at lines 420--420
 []    \T1/pcr/m/n/8 The weight added for each word say 'x' in file 'f' is log(f
 req of x across all files corresponding to assignment/(freq of x in f*number of
  files))[] 
  []
 
 
-Overfull \hbox (63.15622pt too wide) in paragraph at lines 413--413
+Overfull \hbox (63.15622pt too wide) in paragraph at lines 421--421
 []    \T1/pcr/m/n/8 Words which have low frequency in a file than average frequ
 ency across all files are given +ve weightage[] 
  []
 
 
-Overfull \hbox (67.95622pt too wide) in paragraph at lines 414--414
+Overfull \hbox (67.95622pt too wide) in paragraph at lines 422--422
 []    \T1/pcr/m/n/8 Words which have high frequency in a file than average freq
 uency across all files are given -ve weightage[] 
  []
 
 [10]
-Overfull \hbox (195.75542pt too wide) in paragraph at lines 440--440
+Overfull \hbox (195.75542pt too wide) in paragraph at lines 448--448
 \T1/pcr/m/n/7 temp.append(word_count_in_each_file[i].get(j)*((math.log(word_cou
 nt_across_documents.get(j)/word_count_in_each_file[i].get(j)/len(list_of_files)
 ))))  
  []
 
 
-Overfull \hbox (24.7562pt too wide) in paragraph at lines 462--462
+Overfull \hbox (24.7562pt too wide) in paragraph at lines 470--470
 []    \T1/pcr/m/n/8 similarity_matrix:2-dimensional matrix representing mutual 
 similarity between each pair of files[] 
  []
 
 [11]
-Overfull \hbox (24.7562pt too wide) in paragraph at lines 494--494
+Overfull \hbox (24.7562pt too wide) in paragraph at lines 502--502
 []    \T1/pcr/m/n/8 similarity_matrix:2-dimensional matrix representing mutual 
 similarity between each pair of files[] 
  []
@@ -1019,10 +1025,10 @@ similarity between each pair of files[]
 Chapter 4.
 (./a00014.tex
 Package epstopdf Info: Source file: <a00014.eps>
-(epstopdf)                    date: 2020-12-08 14:59:28
+(epstopdf)                    date: 2020-12-08 21:34:14
 (epstopdf)                    size: 3782 bytes
 (epstopdf)             Output file: <a00014-eps-converted-to.pdf>
-(epstopdf)                    date: 2020-12-08 14:59:44
+(epstopdf)                    date: 2020-12-08 21:34:34
 (epstopdf)                    size: 4692 bytes
 (epstopdf)             Command: <repstopdf --outfile=a00014-eps-converted-to.pd
 f a00014.eps>
@@ -1036,10 +1042,10 @@ Package pdftex.def Info: a00014-eps-converted-to.pdf  used on input line 6.
 (pdftex.def)             Requested size: 81.79494pt x 56.9055pt.
  [15]) (./a00022.tex
 Package epstopdf Info: Source file: <a00022.eps>
-(epstopdf)                    date: 2020-12-08 14:59:28
+(epstopdf)                    date: 2020-12-08 21:34:14
 (epstopdf)                    size: 3798 bytes
 (epstopdf)             Output file: <a00022-eps-converted-to.pdf>
-(epstopdf)                    date: 2020-12-08 14:59:45
+(epstopdf)                    date: 2020-12-08 21:34:34
 (epstopdf)                    size: 5442 bytes
 (epstopdf)             Command: <repstopdf --outfile=a00022-eps-converted-to.pd
 f a00022.eps>
@@ -1053,10 +1059,10 @@ Package pdftex.def Info: a00022-eps-converted-to.pdf  used on input line 6.
 (pdftex.def)             Requested size: 86.0681pt x 56.9055pt.
  [16] [17]) (./a00018.tex
 Package epstopdf Info: Source file: <a00018.eps>
-(epstopdf)                    date: 2020-12-08 14:59:28
+(epstopdf)                    date: 2020-12-08 21:34:14
 (epstopdf)                    size: 3800 bytes
 (epstopdf)             Output file: <a00018-eps-converted-to.pdf>
-(epstopdf)                    date: 2020-12-08 14:59:45
+(epstopdf)                    date: 2020-12-08 21:34:35
 (epstopdf)                    size: 5125 bytes
 (epstopdf)             Command: <repstopdf --outfile=a00018-eps-converted-to.pd
 f a00018.eps>
@@ -1105,7 +1111,7 @@ exmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2020/texmf-di
 st/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2020/texmf-dist/font
 s/type1/urw/helvetic/uhvb8ac.pfb></usr/local/texlive/2020/texmf-dist/fonts/type
 1/urw/helvetic/uhvr8a.pfb>
-Output written on refman.pdf (25 pages, 124967 bytes).
+Output written on refman.pdf (25 pages, 125182 bytes).
 PDF statistics:
  529 PDF objects out of 1000 (max. 8388607)
  483 compressed objects within 5 object streams
