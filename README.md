@@ -117,3 +117,12 @@ On Clicking view results,you get 3 files .csv,.txt,.png
 
 This project would be a good learning project.We have developed skills in web development,Python,Machine Learning etc.
 
+### Questions Remaining?
+Should We pad or use droput?
+
+Where to pad 0's?
+
+Which similarity function to use?
+
+If you find better algorithms do ping me.
+
