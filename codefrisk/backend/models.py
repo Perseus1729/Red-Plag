@@ -86,19 +86,19 @@ def visualizer(list_of_files,similarity_matrix):
         Path of the saved image
     Functionality:
         Plotting the output similarity_matrix and saving it as an image """
-    x=range(len(list_of_files)) 
-    y=range(len(list_of_files))
-    xx,yy=np.meshgrid(x,y)
-    z=similarity_matrix[xx,yy]
-    z=np.round(z*100)
+    #x=range(len(list_of_files)) 
+    #y=range(len(list_of_files))
+    #xx,yy=np.meshgrid(x,y)
+    #z=similarity_matrix[xx,yy]
+    #z=np.round(z*100)
     cmap = matplotlib.colors.LinearSegmentedColormap.from_list("", ["green","yellow","red"])
     fig=plt.figure()
     ax=fig.add_subplot(111)
-    im=ax.matshow(z,cmap=cmap,vmin=0,vmax=100,origin='lower')
+    im=ax.matshow(similarity_matrix,cmap=cmap,vmin=0,vmax=1,origin='lower')
     for i in range(len(list_of_files)):
         for j in range(i+1,len(list_of_files)):
-            ax.text(j, i, int(similarity_matrix[i,j]*100),ha="center", va="center", color="k")
-            ax.text(i,j, int(similarity_matrix[i,j]*100),ha="center", va="center", color="k")
+            ax.text(j, i, int(similarity_matrix[i,j]*100),ha="center", va="center", color="k",fontsize=50/(len(list_of_files)+1))
+            ax.text(i,j, int(similarity_matrix[i,j]*100),ha="center", va="center", color="k",fontsize=50/(len(list_of_files)+1))
     fig.colorbar(im,shrink=0.5)
     ax.set_xticks(range(len(list_of_files)))
     ax.set_yticks(range(len(list_of_files)))
