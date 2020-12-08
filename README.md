@@ -91,11 +91,12 @@ Doxygen-GUI   :http://www.doxygen.org/download.html
 
     Core logic-wise a bag-of-words strategy along with tf-idf strategy after preprocesssing.
  # Comment about API
+
+ API while registering a user(registeruser)-          http://127.0.0.1:8000/backend/users/</ br>
+ API while checking for login credentials(loginuser)- http://127.0.0.1:8000/backend/auth/</ br>
+ API for adding files(add_files)-                     http://127.0.0.1:8000/backend/add_file/</ br>
+ API for results(view_files)-                         http://127.0.0.1:8000/backend/view_file/</ br>
  <pre>
- API while registering a user(registeruser)-http://127.0.0.1:8000/backend/users/
- API while checking for login credentials(loginuser)-http://127.0.0.1:8000/backend/auth/
- API for adding files(add_files)-http://127.0.0.1:8000/backend/add_file/
- API for results(view_files)-http://127.0.0.1:8000/backend/view_file/
  While login the post request on http://127.0.0.1:8000/backend/auth/ returns a token corresponding to the user,
  we store it in session storage of angular when we are logging in and we delete it while we are logging out,
  the home component request i.e upload and download are passed withtoken in headers, only if it is a valid token
