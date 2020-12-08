@@ -97,6 +97,11 @@ Doxygen-GUI   :http://www.doxygen.org/download.html
 
 The two strategies we have attempted to implement here are:
 
+### Which files to upload?
+You can use our website in two ways.
+You can upload either upload a single tar file or upload seperate files from different accounts with same assignment name.
+
+
 ### Bag of Words strategy:
 
 For each document, a sorted vector of the word occurrences in the file are created. The cosine similarity between two vectors is returned as the degree of plagiarism.
